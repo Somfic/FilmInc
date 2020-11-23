@@ -6,7 +6,7 @@
         title="Tenet"
         start_time="12:35"
         end_time="14:21"
-        theatre="4"
+        theatre="5"
       ></Scheduled>
       <Scheduled
         img="https://kinepolis.nl/sites/kinepolis.nl/files/styles/kinepolis_filter_movie_poster/public/posters/Trolls-Wereldtour_ps_1_jpg_sd-high_Copyright-2019-DreamWorks-Animation-LLC-All-Rights-Reserved_NL_FO.jpg"
