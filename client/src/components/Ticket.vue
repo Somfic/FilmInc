@@ -1,9 +1,7 @@
 <template>
   <div class="ticket">
-      <div>
-      <p>{{name}}</p>
-      <p>{{cost}}</p>
-      </div>
+    <p>{{ name }}</p>
+    <p v-if="cost != null">€ {{ cost }}</p>
   </div>
 </template>
 
@@ -11,7 +9,7 @@
 export default {
   name: "Ticket",
   props: {
-      name: String,
+    name: String,
     cost: String,
   },
 };
@@ -20,12 +18,13 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .ticket {
-    background-color: rgb(172, 172, 172);
-    width: 100px;
-    height: 100px;
+  background-color: rgb(172, 172, 172);
+  width: 100px;
+  height: 100px;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
 }
 </style>
