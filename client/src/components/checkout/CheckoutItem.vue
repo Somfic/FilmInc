@@ -1,7 +1,7 @@
 <template>
   <div class="checkout-item">
-    <p>{{name}}</p>
-    <p>€ {{cost}}</p>
+    <span>{{name}}</span>
+    <span>€ {{cost}}</span>
   </div>
 </template>
 
