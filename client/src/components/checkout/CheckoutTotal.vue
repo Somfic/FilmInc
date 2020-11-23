@@ -1,6 +1,6 @@
 <template>
   <div class="checkout-total">
-    <p>Total</p>
+    <p>Totaal</p>
     <p>€ {{cost}}</p>
   </div>
 </template>
