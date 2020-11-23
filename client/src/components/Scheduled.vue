@@ -2,14 +2,14 @@
   <div class="scheduled">
     <img class="poster" :src="img" alt="" />
     <div class="details">
-      <p class="title">{{ title }}</p>
-      <p class="times">{{ start_time }} - {{ end_time }}</p>
-      <p class="location">Zaal {{ theatre }}</p>
+      <span class="title">{{ title }}</span>
+      <span class="times">{{ start_time }} - {{ end_time }}</span>
+      <span class="location">Zaal {{ theatre }}</span>
     </div>
-    <div class="tickets">
-        <ticket name="Standaard ticket" cost="7,50"></ticket>
-        <ticket name="Luxe standaard" cost="9,00"></ticket>
-        <ticket name="..."></ticket>
+    <div class="tickets list-group list-group-horizontal">
+        <ticket name="Standaard ticket" cost="7,50" class="list-group-item"></ticket>
+        <ticket name="Luxe standaard" cost="9,00" class="list-group-item"></ticket>
+        <ticket name="..." class="list-group-item"></ticket>
     </div>
   </div>
 </template>
@@ -58,8 +58,7 @@ export default {
   word-wrap: break-word;
 }
 
-.tickets {
-    display: flex;
-    gap: 1rem;
+.details > span {
+    display: block;
 }
 </style>
