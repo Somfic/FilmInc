@@ -14,7 +14,7 @@ app.use(bodyParser.json());
 
 // Logging for all requests
 app.all('*', (req, res, next) => {
-	logger.info('Incoming request');
+	logger.debug('Incoming request');
 	logger.debug(`Url: ${req.url}`);
 	logger.debug(`Method: ${req.method}`);
 	if (isPopulated(req.headers.authorization)) {
