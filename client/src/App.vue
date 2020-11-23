@@ -6,7 +6,7 @@
         title="Tenet"
         start_time="12:35"
         end_time="14:21"
-        theatre="4"
+        theatre="5"
       ></Scheduled>
     </div>
     <div class="checkout">
