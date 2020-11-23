@@ -1,15 +1,15 @@
 <template>
   <div class="scheduled">
-    <div class="location">
-      <p>{{ theatre }}</p>
-    </div>
     <img class="poster" :src="img" alt="" />
     <div class="details">
       <p class="title">{{ title }}</p>
       <p class="times">{{ start_time }} - {{ end_time }}</p>
+      <p class="location">Zaal {{ theatre }}</p>
     </div>
     <div class="tickets">
-        <ticket name="Standard" cost="23,32"></ticket>
+        <ticket name="Standaard ticket" cost="7,50"></ticket>
+        <ticket name="Luxe standaard" cost="9,00"></ticket>
+        <ticket name="..."></ticket>
     </div>
   </div>
 </template>
@@ -37,31 +37,29 @@ export default {
 .scheduled {
   display: flex;
   gap: 1rem;
-  height: 200px;
+  padding-right: 1rem;
   align-items: center;
-  border: 1px solid black;
 }
 
 .poster {
+  height: 150px;
   width: 100px;
-  height: 100%;
   object-fit: cover;
-}
-
-.location {
-  height: 100%;
-  width: 1rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 .details {
   text-align: left;
+  width: 100%;
 }
 
 .details > .title {
   font-size: 2rem;
   font-weight: bold;
+  word-wrap: break-word;
+}
+
+.tickets {
+    display: flex;
+    gap: 1rem;
 }
 </style>
