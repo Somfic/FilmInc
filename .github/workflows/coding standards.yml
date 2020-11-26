@@ -1,4 +1,4 @@
-name: Coding quality
+name: Code tests
 
 on:
   pull_request:
@@ -7,22 +7,14 @@ on:
     branches: [ dev ]
 
 jobs:
-  spelling:
-    name: Spelling
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-
-      - name: Check spelling
-        uses: typoci/spellcheck-action@master
-      
-  tests:
-    name: Testing
+  server:
+    name: Server tests
     runs-on: ubuntu-latest
 
     strategy:
       matrix:
         node-version: [8.x, 10.x, 12.x]
+        directory: [server, client]
 
     steps:
     - name: Checkout code
@@ -35,12 +27,15 @@ jobs:
       
     - name: Install dependencies
       run: npm install -ci
+      working-directory: ${{ matrix.directory }}
     
     - name: Build
       run: npm run build --if-present
+      working-directory: ${{ matrix.directory }}
     
     - name: Test
       run: npm test
+      working-directory: ${{ matrix.directory }}
       env:
         CI: true
     
