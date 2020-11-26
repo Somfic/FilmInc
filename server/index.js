@@ -4,42 +4,31 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 const config = require('./src/config/config.js');
-const logger = config.logger;
-//const database = require('./src/services/database');
-
-const bodyParser = require('body-parser');
+const logger = require('./src/config/logger');
+const database = require('./src/config/database');
 
 // Setup parser
-app.use(bodyParser.json());
+app.use(require('body-parser').json());
 
 // Logging for all requests
 app.all('*', (req, res, next) => {
-	logger.debug('Incoming request');
-	logger.debug(`Url: ${req.url}`);
-	logger.debug(`Method: ${req.method}`);
-	if (isPopulated(req.headers.authorization)) {
-		logger.debug(`Auth: ${req.headers.authorization}`);
+	let requestInfo = {
+		authorization: req.headers.authorization,
+		query: req.query,
+		body: req.body,
+		params: req.params
 	}
-	if (isPopulated(req.query)) {
-		logger.debug(`Query: ${JSON.stringify(req.query)}`);
-	}
-	if (isPopulated(req.body)) {
-		logger.debug(`Body: ${JSON.stringify(req.body)}`);
-	}
-	if (isPopulated(req.params)) {
-		logger.debug(`Params: ${JSON.stringify(req.params)}`);
-	}
+
+	logger.debug(`Incoming request: ${req.protocol + '://' + req.get('host') + req.originalUrl}`, requestInfo);
 	next();
 });
 
-app.get('/', (req, res) => {
-    res.send('hi');
-});
+// Routes
+app.use('/showings', require('./src/routes/showings'));
 
 app.listen(port, () => {
 	logger.info(`Server initiated on port ${port}`);
+	logger.debug(`Mode: ${config.mode}`);
 });
 
-function isPopulated(object) {
-    return object != null && Object.keys(object).length > 0;
-}
+database.connect();
