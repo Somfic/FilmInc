@@ -8,7 +8,7 @@ on:
 
 jobs:
   server:
-    name: Server tests
+    name: Test ${{ matrix.directory }}
     runs-on: ubuntu-latest
 
     strategy:
