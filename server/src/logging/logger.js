@@ -46,7 +46,7 @@ function log(logLevel, message, object = null) {
 	content += " ";
 	content += buildMessage(logLevel, message);
 
-	if (object != null) {
+	if (object) {
 		prettyJson
 			.render(object)
 			.split("\n")
