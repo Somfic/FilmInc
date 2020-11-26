@@ -18,7 +18,8 @@
     "mongodb": "^3.6.3",
     "mongoose": "^5.10.16",
     "prettyjson": "^1.2.1",
-    "tracer": "^1.1.4"
+    "tracer": "^1.1.4",
+    "yup": "^0.31.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.6"
