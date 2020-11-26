@@ -1,15 +1,47 @@
-name: Coding standards
+name: Coding quality
 
 on:
   pull_request:
     branches: [ main, dev ]
+  push:
+    branches: [ dev ]
 
 jobs:
-  Spelling:
+  spelling:
+    name: Spelling
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
 
       - name: Check spelling
         uses: typoci/spellcheck-action@master
+      
+  tests:
+    name: Testing
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [8.x, 10.x, 12.x]
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+  
+    - name: Setup Node.js v${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+      
+    - name: Install dependencies
+    - run: npm install -ci
+    
+    - name: Build
+      run: npm run build --if-present
+    
+    - name: Test
+      run: npm test
+      env:
+        CI: true
+    
           
