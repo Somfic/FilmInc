@@ -1,7 +1,8 @@
-const logger = require("../../config/logger");
+const ServerError = require("../../error/ServerError");
+const logger = require("../../logging/logger");
 const Showing = require("../../models/Showing");
 
-module.exports = (req, res, next) => {
+module.exports = async (req, res, next) => {
     logger.trace('Controller: showings/create');
 
     let showing = new Showing({
@@ -10,9 +11,11 @@ module.exports = (req, res, next) => {
         date: req.body.date
     })
 
-    showing.save().then(data => {
-        res.json(data);
-    }).catch(err => {
-        res.status(301).json(err);
-    })
+    try {
+        let result = await showing.save();
+
+        res.status(201).json(result);
+    } catch(err) {
+        next(ServerError.badRequest(err));
+    }
 };
