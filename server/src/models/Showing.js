@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const showingSchema = mongoose.Schema({
+module.exports = mongoose.model('Showing', mongoose.Schema({
     title: {
         type: String,
         required: true
@@ -16,6 +16,4 @@ const showingSchema = mongoose.Schema({
         required: true,
         default: Date.now()
     }
-});
-
-module.exports = mongoose.model('Showing', showingSchema);
+}));
