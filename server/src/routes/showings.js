@@ -4,7 +4,7 @@ const validationHandler = require("../validation/validationHandler");
 const router = express.Router();
 
 // List
-router.get("/", require("../controllers/showings/list.controller"));
+router.get("/list", require("../controllers/showings/list.controller"));
 
 // Detail
 router.get(
@@ -14,6 +14,6 @@ router.get(
 );
 
 // Create
-router.post("/", require("../controllers/showings/create.controller"));
+router.post("/create", require("../controllers/showings/create.controller"));
 
 module.exports = router;

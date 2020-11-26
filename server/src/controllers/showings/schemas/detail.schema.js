@@ -1,5 +1,5 @@
-const yup = require('yup');
+const yup = require("yup");
 
 module.exports = yup.object().shape({
-    id: yup.string().required()
+	id: yup.string().required(),
 });
