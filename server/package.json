@@ -17,6 +17,7 @@
     "express": "^4.17.1",
     "mongodb": "^3.6.3",
     "mongoose": "^5.10.16",
+    "prettyjson": "^1.2.1",
     "tracer": "^1.1.4"
   },
   "devDependencies": {
