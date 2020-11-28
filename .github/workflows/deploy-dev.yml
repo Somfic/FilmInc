@@ -23,9 +23,13 @@ jobs:
         working-directory: ./client
         run: npm run build
 
-      - name: Show structure
+      - name: Show structure 1/2
         working-directory: ./server
-        run: cmd /c dir
+        run: sudo apt-get install tree
+
+      - name: Show structure 2/2
+        working-directory: ./server
+        run: tree
 
       - name: Deploy to Heroku
         uses: akhileshns/heroku-deploy@v3.6.8
