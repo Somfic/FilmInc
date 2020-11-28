@@ -19,12 +19,17 @@ module.exports = (req, res, next) => {
 		requestInfo.params = req.params;
 	}
 
-	logger.debug(
-		`Incoming request: ${req.method} ${
-			req.protocol + "://" + req.get("host") + req.originalUrl
-		}`,
-		requestInfo
-	);
+	let url = `${req.protocol}://${req.get("host")}${req.originalUrl}`;
+
+	// Don't log html support files
+	if (
+		!url.endsWith(".ico") &&
+		!url.endsWith(".js") &&
+		!url.endsWith(".css")
+	) {
+		logger.debug(`${req.method} request: ${url}`, requestInfo);
+	}
+
 	next();
 };
 
