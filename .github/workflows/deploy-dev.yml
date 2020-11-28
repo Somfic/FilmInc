@@ -1,4 +1,4 @@
-name: Deploy to development
+name: Deploy
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
 
 jobs:
   deploy:
-    name: Deploy application
+    name: Development
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
