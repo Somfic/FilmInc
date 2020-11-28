@@ -6,6 +6,9 @@ const logger = require("./src/logging/logger");
 const database = require("./src/config/database");
 const path = require("path");
 
+// Serve static client
+app.use(express.static(path.resolve(__dirname, "public/")));
+
 // Setup parser
 app.use(require("body-parser").json());
 
@@ -17,9 +20,6 @@ app.use("/api/showings", require("./src/routes/showings"));
 
 // Error handling
 app.use(require("./src/error/errorHandler.js"));
-
-// Serve static client
-app.use(express.static(path.resolve(__dirname, "public/")));
 
 // Send to client in case of invalid url
 app.get("*", (req, res) => {
