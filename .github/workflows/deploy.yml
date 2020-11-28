@@ -37,3 +37,5 @@ jobs:
           heroku_app_name: "filminc"
           heroku_email: "somfic@gmail.com"
           branch: compiled-production
+        env:
+          HD_DB_CONNECTION: ${{secrets.DB_CONNECTION}}
