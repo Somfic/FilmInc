@@ -23,16 +23,9 @@ jobs:
         working-directory: ./client
         run: npm run build
 
-      - name: Commit frontend
-        uses: EndBug/add-and-commit@v5.2.0
+      - name: Compile application
+        uses: peaceiris/actions-gh-pages@v3
         with:
-          message: 'Frontend automatic build'
-
-      - name: Deploy to Heroku
-        uses: akhileshns/heroku-deploy@v3.6.8
-        with:
-          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: "filminc-dev"
-          heroku_email: "somfic@gmail.com"
-          branch: "dev"
-          appdir: server
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./server
+          publish_branch: deploy-dev
