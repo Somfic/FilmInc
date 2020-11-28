@@ -15,7 +15,7 @@ jobs:
       - name: Setup Node.js environment
         uses: actions/setup-node@v2.1.2
 
-      - name: Install dependencies
+      - name: Install frontend dependencies
         working-directory: ./client
         run: npm install -ci
       
