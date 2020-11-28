@@ -23,13 +23,10 @@ jobs:
         working-directory: ./client
         run: npm run build
 
-      - name: Show structure 1/2
-        working-directory: ./server
-        run: sudo apt-get install tree
-
-      - name: Show structure 2/2
-        working-directory: ./server
-        run: tree
+      - name: Commit frontend
+        uses: EndBug/add-and-commit@v5.2.0
+        with:
+          message: 'Frontend automatic build'
 
       - name: Deploy to Heroku
         uses: akhileshns/heroku-deploy@v3.6.8
@@ -37,4 +34,5 @@ jobs:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: "filminc-dev"
           heroku_email: "somfic@gmail.com"
+          branch: "dev"
           appdir: server
