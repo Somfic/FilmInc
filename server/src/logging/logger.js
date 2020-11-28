@@ -117,6 +117,8 @@ function colorize(content, logLevel) {
 }
 
 function writeToConsole(logLevel, content) {
+	content = content.trimEnd();
+
 	switch (logLevel) {
 		case "critical":
 		case "error":

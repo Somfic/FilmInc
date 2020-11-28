@@ -3,12 +3,7 @@ const logger = require("../../logging/logger");
 const Showing = require("../../models/Showing");
 
 module.exports = async (req, res, next) => {
-	if (req.query.id) {
-		next();
-		return;
-	}
-
-	logger.trace("Controller: showings/list");
+	logger.debug("Controller: showings/list");
 
 	try {
 		let showings = await Showing.find();
