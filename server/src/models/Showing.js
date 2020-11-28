@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const Timing = require("./Timing");
 
 module.exports = mongoose.model(
 	"Showing",
@@ -18,15 +19,8 @@ module.exports = mongoose.model(
 		},
 
 		timing: {
-			startAt: {
-				type: Date,
-				required: true,
-			},
-
-			endAt: {
-				type: Date,
-				required: true,
-			},
+			type: Timing,
+			required: true,
 		},
 
 		seats: [
