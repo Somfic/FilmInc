@@ -8,7 +8,7 @@ on:
 
 jobs:
   server:
-    name: Test ${{ matrix.directory }} on Node ${{ matrix.node-version }}
+    name: Test application on Node ${{ matrix.node-version }}
     runs-on: ubuntu-latest
 
     strategy:
