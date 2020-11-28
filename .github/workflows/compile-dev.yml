@@ -1,0 +1,31 @@
+name: Compile development
+
+on:
+  push:
+    branches: [ dev ]
+
+jobs:
+  deploy:
+    name: Compile application
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+     
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v2.1.2
+
+      - name: Install frontend dependencies
+        working-directory: ./client
+        run: npm install -ci
+      
+      - name: Build frontend
+        working-directory: ./client
+        run: npm run build
+
+      - name: Compile application
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./server
+          publish_branch: compiled-development

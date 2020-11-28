@@ -8,5 +8,5 @@ module.exports = (err, req, res, next) => {
 	}
 
 	logger.error(`Unexpected exception: ${err}`);
-	return res.status(500).json("Something went wrong");
+	return res.status(500).json({ error: err.message });
 };

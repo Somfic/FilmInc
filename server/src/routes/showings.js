@@ -4,7 +4,7 @@ const validationHandler = require("../validation/validationHandler");
 const router = express.Router();
 
 // List
-router.get("/list", require("../controllers/showings/list.controller"));
+router.get("/", require("../controllers/showings/list.controller"));
 
 // Detail
 router.get(
