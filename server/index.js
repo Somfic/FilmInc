@@ -13,7 +13,7 @@ app.use(require("body-parser").json());
 app.use(require("./src/logging/loggerHandler"));
 
 // Routes
-app.use("/showings", require("./src/routes/showings"));
+app.use("/api/showings", require("./src/routes/showings"));
 
 // Error handling
 app.use(require("./src/error/errorHandler.js"));
@@ -21,13 +21,17 @@ app.use(require("./src/error/errorHandler.js"));
 // Serve static client
 app.use(express.static(path.resolve(__dirname, "public/")));
 
-// Handle SPA
-app.get("*", (req, res) =>
-	res.sendFile(path.resolve(__dirname, "public/index.html"))
-);
+// Send to client in case of invalid url
+app.get("*", (req, res) => {
+	logger.trace("Invalid, sending to index");
+	res.sendFile(path.resolve(__dirname, "public/index.html"));
+});
 
+// Start database
+database.connect();
+
+// Start server
 app.listen(config.port, () => {
 	logger.info(`Server initiated on port ${config.port}`);
 	logger.debug(`Mode: ${config.mode}`);
-	database.connect();
 });
