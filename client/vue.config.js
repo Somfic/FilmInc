@@ -1,3 +1,6 @@
+const path = require("path");
+
 module.exports = {
-  publicPath: process.env.NODE_ENV === "production" ? "/FilmInc/" : "/",
+    outputDir: 'C:\\Users\\somfi\\Documents\\GitHub\\FilmInc\\server\\public',
+    publicPath: ''
 };

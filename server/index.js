@@ -1,45 +1,33 @@
-const express = require('express');
-
+const express = require("express");
 const app = express();
-const port = process.env.PORT || 3000;
 
-const config = require('./src/config/config.js');
-const logger = config.logger;
-//const database = require('./src/services/database');
-
-const bodyParser = require('body-parser');
+const config = require("./src/config/config.js");
+const logger = require("./src/logging/logger");
+const database = require("./src/config/database");
+const path = require("path");
 
 // Setup parser
-app.use(bodyParser.json());
+app.use(require("body-parser").json());
 
-// Logging for all requests
-app.all('*', (req, res, next) => {
-	logger.debug('Incoming request');
-	logger.debug(`Url: ${req.url}`);
-	logger.debug(`Method: ${req.method}`);
-	if (isPopulated(req.headers.authorization)) {
-		logger.debug(`Auth: ${req.headers.authorization}`);
-	}
-	if (isPopulated(req.query)) {
-		logger.debug(`Query: ${JSON.stringify(req.query)}`);
-	}
-	if (isPopulated(req.body)) {
-		logger.debug(`Body: ${JSON.stringify(req.body)}`);
-	}
-	if (isPopulated(req.params)) {
-		logger.debug(`Params: ${JSON.stringify(req.params)}`);
-	}
-	next();
+// Setup logging middleware
+app.use(require("./src/logging/loggerHandler"));
+
+// Routes
+app.use("/showings", require("./src/routes/showings"));
+
+// Error handling
+app.use(require("./src/error/errorHandler.js"));
+
+// Serve static client
+app.use(express.static(path.resolve(__dirname, "public/")));
+
+// Handle SPA
+app.get("*", (req, res) =>
+	res.sendFile(path.resolve(__dirname, "public/index.html"))
+);
+
+app.listen(config.port, () => {
+	logger.info(`Server initiated on port ${config.port}`);
+	logger.debug(`Mode: ${config.mode}`);
+	database.connect();
 });
-
-app.get('/', (req, res) => {
-    res.send('hi');
-});
-
-app.listen(port, () => {
-	logger.info(`Server initiated on port ${port}`);
-});
-
-function isPopulated(object) {
-    return object != null && Object.keys(object).length > 0;
-}

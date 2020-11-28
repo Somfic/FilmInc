@@ -1,12 +1,8 @@
-const logLevel = process.env.LOGLEVEL || 'debug';
+require("dotenv/config");
 
 module.exports = {
-    logger: require('tracer').console({
-        format: ['{{timestamp}} [{{title}}] {{file}}:{{line}} : {{message}}'],
-        preprocess: function (data) {
-            data.title = data.title.toUpperCase();
-        },
-        dateformat: 'isoUtcDateTime',
-        level: logLevel
-    })
-}
+	mode: process.env.NODE_ENV || "development",
+	databaseUrl: process.env.DB_CONNECTION,
+	logLevel: process.env.LOGLEVEL || "debug",
+	port: process.env.PORT || 3000,
+};

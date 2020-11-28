@@ -8,12 +8,18 @@
     "dev": "nodemon index.js",
     "test": "echo \"Error: no test specified\""
   },
-  "author": "Lucas de Jong",
+  "author": "Lucas Valerio de Jong",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.19.0",
+    "chalk": "^4.1.0",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "tracer": "^1.1.4"
+    "mongodb": "^3.6.3",
+    "mongoose": "^5.10.16",
+    "prettyjson": "^1.2.1",
+    "tracer": "^1.1.4",
+    "yup": "^0.31.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.6"
