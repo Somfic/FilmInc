@@ -7,9 +7,13 @@ const database = require("./src/config/database");
 const cors = require("cors");
 const path = require("path");
 
-// Setup middleware
+// Setup body parser (json) middleware
 app.use(require("body-parser").json());
+
+// Setup CORS middleware
 app.use(cors());
+
+// Setup logging middleware
 app.use(require("./src/logging/loggerHandler"));
 
 // Routes
