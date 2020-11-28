@@ -27,6 +27,8 @@ module.exports = {
 			}
 		);
 
-		mongoose.on;
+		mongoose.set("debug", (collection, method, query, doc) => {
+			logger.trace(`Database: ${collection}.${method}`, query);
+		});
 	},
 };
