@@ -27,11 +27,11 @@ app.get("*", (req, res) => {
 	res.sendFile(path.resolve(__dirname, "public/index.html"));
 });
 
-// Start database
-database.connect();
-
 // Start server
 app.listen(config.port, () => {
 	logger.info(`Server initiated on port ${config.port}`);
 	logger.debug(`Mode: ${config.mode}`);
 });
+
+// Start database
+database.connect();
