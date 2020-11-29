@@ -4,7 +4,7 @@ const routes = [
 	{
 		path: "/",
 		name: "Ticketselectie",
-		component: import("../views/TicketSelection.vue")
+		component: () => import("../views/TicketSelection.vue")
 	},
 	{
 		path: "/project",
