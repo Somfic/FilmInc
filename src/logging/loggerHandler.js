@@ -25,7 +25,8 @@ module.exports = (req, res, next) => {
 	if (
 		!url.endsWith(".ico") &&
 		!url.endsWith(".js") &&
-		!url.endsWith(".css")
+		!url.endsWith(".css") &&
+		!url.endsWith(".map")
 	) {
 		logger.debug(`${req.method} request: ${url}`, requestInfo);
 	}

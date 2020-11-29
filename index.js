@@ -26,10 +26,12 @@ app.use(require("./src/error/errorHandler.js"));
 app.use(express.static(path.resolve(__dirname, "public/")));
 
 // Send to client in case of invalid url
-app.get("*", (req, res) => {
-	logger.trace("Invalid, sending to index");
+app.get(/.*/, (req, res) => {
 	res.sendFile(path.resolve(__dirname, "public/index.html"));
 });
+
+// Setup Vue Router History fallback
+app.use(require("connect-history-api-fallback"));
 
 // Start database
 database.connect();
