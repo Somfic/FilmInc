@@ -1,64 +1,45 @@
 <template>
-  <div class="scheduled">
-    <img class="poster" :src="img" alt="" />
-    <div class="details">
-      <span class="title">{{ title }}</span>
-      <span class="times">{{ start_time }} - {{ end_time }}</span>
-      <span class="location">Zaal {{ theatre }}</span>
-    </div>
-    <div class="tickets list-group list-group-horizontal">
-        <ticket name="Standaard ticket" cost="7,50" class="list-group-item"></ticket>
-        <ticket name="Luxe standaard" cost="9,00" class="list-group-item"></ticket>
-        <ticket name="..." class="list-group-item"></ticket>
-    </div>
-  </div>
+	<div
+		class="scheduled list-group-item align-items-start d-flex align-items-center"
+	>
+		<div class="d-flex col-1 p-0">
+			<img class="img-fluid" :src="img" alt="" />
+		</div>
+		<div class="details col-3 d-flex flex-column">
+			<span class="h5 m-0">{{ title }}</span>
+			<span class="font-weight-bold"
+				>{{ start_time }} - {{ end_time }}</span
+			>
+			<div>
+				<span v-for="tag in tags" :key="tag" class="badge">
+					{{ tag }}
+				</span>
+			</div>
+		</div>
+		<div class="tickets list-group list-group-horizontal">
+			<ticket name="Standaard" cost="7,50"></ticket>
+			<ticket name="Kind" cost="5,00"></ticket>
+			<ticket name="Familie" cost="25,00"></ticket>
+		</div>
+	</div>
 </template>
 
 <script>
 import Ticket from "./Ticket.vue";
 
 export default {
-  name: "Scheduled",
-  props: {
-    img: String,
-    title: String,
-    theatre: String,
-    start_time: String,
-    end_time: String,
-  },
-  components: {
-    Ticket,
-  },
+	name: "Scheduled",
+	props: {
+		img: String,
+		title: String,
+		theatre: String,
+		age: String,
+		start_time: String,
+		end_time: String,
+		tags: Object,
+	},
+	components: {
+		Ticket,
+	},
 };
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-.scheduled {
-  display: flex;
-  gap: 1rem;
-  padding-right: 1rem;
-  align-items: center;
-}
-
-.poster {
-  height: 150px;
-  width: 100px;
-  object-fit: cover;
-}
-
-.details {
-  text-align: left;
-  width: 100%;
-}
-
-.details > .title {
-  font-size: 2rem;
-  font-weight: bold;
-  word-wrap: break-word;
-}
-
-.details > span {
-    display: block;
-}
-</style>
