@@ -3,7 +3,7 @@ const app = express();
 
 const config = require("./src/config/config.js");
 const logger = require("./src/logging/logger");
-const database = require("./src/config/database");
+const database = require("./src/database/database");
 const cors = require("cors");
 const path = require("path");
 
@@ -31,11 +31,11 @@ app.get("*", (req, res) => {
 	res.sendFile(path.resolve(__dirname, "public/index.html"));
 });
 
+// Start database
+database.connect();
+
 // Start server
 app.listen(config.port, () => {
 	logger.info(`Server initiated on port ${config.port}`);
 	logger.debug(`Mode: ${config.mode}`);
 });
-
-// Start database
-database.connect();
