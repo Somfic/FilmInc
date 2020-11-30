@@ -17,7 +17,7 @@ app.use(cors());
 app.use(require("./src/logging/loggerHandler"));
 
 // Routes
-app.use("/api/showings", require("./src/routes/showings"));
+app.use("/api/watchable", require("./src/routes/watchable"));
 
 // Error handling
 app.use(require("./src/error/errorHandler.js"));
