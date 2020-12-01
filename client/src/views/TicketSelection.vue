@@ -74,7 +74,10 @@ export default {
 	methods: {
 		addCheckout(item) {
 			let filtered = this.checkouts.filter(
-				(x) => x.movieId == item.movieId && x.type == item.type
+				(x) =>
+					x.movieId == item.movieId &&
+					x.type == item.type &&
+					x.title == item.title
 			);
 
 			if (filtered.length == 0) {

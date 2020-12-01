@@ -1,19 +1,17 @@
 <template>
-	<div class="list-group-item list-group-item-action" v-on:click="clicked">
+	<div
+		class="list-group-item list-group-item-action py-1"
+		v-on:click="clicked"
+	>
 		<div class="row">
-			<div class="col-auto">
+			<div class="col-auto align-self-center border-right h-100">
+				<span class="badge badge-primary badge-pill">{{ amount }}</span>
+			</div>
+			<div class="col my-1">
 				<small class="text-muted">{{ title }}</small
 				><br />
 				<span>{{ type }}</span>
 			</div>
-			<div class="col align-self-center">
-				<span
-					v-if="amount > 1"
-					class="badge badge-primary badge-pill"
-					>{{ amount }}</span
-				>
-			</div>
-
 			<div class="col-auto align-self-center">
 				<span>€ {{ cost }}</span>
 			</div>
