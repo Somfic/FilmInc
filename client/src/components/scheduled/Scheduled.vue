@@ -33,12 +33,17 @@
 					<Ticket
 						@clicked="ticketSelected"
 						name="Kind"
-						cost="5,00"
+						cost="5,50"
 					></Ticket>
 					<Ticket
 						@clicked="ticketSelected"
-						name="Familie"
-						cost="25,00"
+						name="Standaard Luxe"
+						cost="10,00"
+					></Ticket>
+					<Ticket
+						@clicked="ticketSelected"
+						name="Kind Luxe"
+						cost="8,00"
 					></Ticket>
 				</div>
 			</div>

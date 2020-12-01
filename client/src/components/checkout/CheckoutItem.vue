@@ -9,10 +9,13 @@
 				><br />
 				<span>{{ type }}</span>
 			</div>
-			<div class="col-auto align-self-center">
-				<span>€ {{ cost }}</span>
-			</div>
-			<div class="col-auto d-flex align-items-center" v-if="isEditing">
+			<div
+				class="col-auto d-flex align-items-center p-0"
+				v-if="isEditing"
+			>
+				<span class="p-2" v-on:click.stop="remove">
+					<i class="fas fa-ban"></i>
+				</span>
 				<div class="btn-group-vertical" role="group">
 					<span class="h-100 py-0 px-3" v-on:click.stop="add">
 						<i class="fas fa-caret-up"></i>
@@ -21,9 +24,9 @@
 						<i class="fas fa-caret-down"></i>
 					</span>
 				</div>
-				<span class="p-2" v-on:click.stop="remove">
-					<i class="fas fa-ban"></i>
-				</span>
+			</div>
+			<div class="col-auto align-self-center">
+				<span>€ {{ cost }}</span>
 			</div>
 		</div>
 	</div>
