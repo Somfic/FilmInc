@@ -1,21 +1,28 @@
 <template>
-	<div class="card flex-row flex-wrap">
-		<div class="card-header border-0">
-			<img :src="img" alt="" />
+	<div class="card">
+		<div class="row m-0">
+			<div class="card-header border-0 col-auto">
+				<img class="img-thumbnail" :src="poster" alt="" />
+			</div>
+			<div class="card-block m-3 px-2 col">
+				<h1>{{ title }}</h1>
+				<p class="card-text">{{ description }}</p>
+			</div>
 		</div>
-		<div class="card-block px-2">
-			<h4 class="card-title">{{ title }}</h4>
-			<p class="card-text">{{ description }}</p>
-			<a href="#" class="btn btn-primary">BUTTON</a>
+		<div class="row m-0 card-footer">
+			<Badge :content="classification"></Badge>
+			<Badge :content="length + ' min'"></Badge>
 		</div>
-		<div class="w-100"></div>
-		<div class="card-footer w-100 text-muted">FOOTER</div>
 	</div>
 </template>
 
 <script>
+import Badge from "../badges/Badge";
 export default {
 	name: "Watchable",
+	components: {
+		Badge,
+	},
 	props: {
 		title: String,
 		description: String,

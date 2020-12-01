@@ -109,12 +109,11 @@ export default {
 
 		subtract(checkoutId) {
 			let filtered = this.checkouts.filter((x) => x.id == checkoutId);
-			filtered[0].amount--;
-			if (filtered[0].amount <= 0) {
-				this.remove(checkoutId);
-			} else {
-				this.updateCheckoutList();
+			if (filtered[0].amount > 1) {
+				filtered[0].amount--;
 			}
+
+			this.updateCheckoutList();
 		},
 
 		remove(checkoutId) {
