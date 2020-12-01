@@ -1,38 +1,29 @@
 <template>
-	<div
-		class="list-group-item list-group-item-action py-1"
-		v-on:click="clicked"
-	>
+	<div class="list-group-item list-group-item-action py-1">
 		<div class="row">
 			<div class="col-auto align-self-center border-right h-100">
 				<span class="badge badge-primary badge-pill">{{ amount }}</span>
 			</div>
 			<div class="col my-1">
-				<small class="text-muted">{{ title }}</small
+				<small>{{ title }}</small
 				><br />
 				<span>{{ type }}</span>
 			</div>
 			<div class="col-auto align-self-center">
 				<span>€ {{ cost }}</span>
 			</div>
-			<div class="col-auto" v-if="isEditing">
+			<div class="col-auto d-flex align-items-center" v-if="isEditing">
 				<div class="btn-group-vertical" role="group">
-					<button
-						class="btn h-100 text-muted py-0 px-3"
-						v-on:click.stop="add"
-					>
+					<span class="h-100 py-0 px-3" v-on:click.stop="add">
 						<i class="fas fa-caret-up"></i>
-					</button>
-					<button
-						class="btn h-100 text-muted py-0 px-3"
-						v-on:click.stop="subtract"
-					>
+					</span>
+					<span class="h-100 py-0 px-3" v-on:click.stop="subtract">
 						<i class="fas fa-caret-down"></i>
-					</button>
+					</span>
 				</div>
-				<button class="btn h-100 text-muted" v-on:click.stop="remove">
+				<span class="p-2" v-on:click.stop="remove">
 					<i class="fas fa-ban"></i>
-				</button>
+				</span>
 			</div>
 		</div>
 	</div>
@@ -42,23 +33,14 @@
 export default {
 	name: "CheckoutItem",
 	props: {
-		id: String,
 		movieId: String,
 		title: String,
 		type: String,
 		amount: Number,
 		cost: String,
-	},
-	data() {
-		return {
-			isEditing: false,
-		};
+		isEditing: Boolean,
 	},
 	methods: {
-		clicked() {
-			this.isEditing = !this.isEditing;
-		},
-
 		add() {
 			this.$emit("add", this.id);
 		},

@@ -25,14 +25,17 @@
 			<div class="col">
 				<div class="list-group">
 					<CheckoutItem
-						v-for="checkout in checkouts"
-						:key="checkout"
-						:movieId="checkout.movieId"
-						:id="checkout.id"
-						:title="checkout.title"
-						:type="checkout.type"
-						:cost="checkout.cost"
-						:amount="checkout.amount"
+						v-for="(item, index) in checkouts"
+						:key="item"
+						:movieId="item.movieId"
+						:id="item.id"
+						:title="item.title"
+						:type="item.type"
+						:cost="item.cost"
+						:amount="item.amount"
+						:class="{ 'bg-light': index == currentIndex }"
+						:isEditing="index == currentIndex"
+						@click="setActive(item, index)"
 						@add="add"
 						@subtract="subtract"
 						@remove="remove"
@@ -41,6 +44,7 @@
 						v-if="checkouts.length > 0"
 						:cost="total"
 						:count="count"
+						@click="setActive(null, -1)"
 					></CheckoutTotal>
 					<CheckoutOptions
 						v-if="checkouts.length > 0"
@@ -69,7 +73,14 @@ export default {
 		CheckoutOptions,
 	},
 	data() {
-		return { watchables: [], checkouts: [], total: 0.0, count: 0 };
+		return {
+			watchables: [],
+			checkouts: [],
+			total: 0.0,
+			count: 0,
+			currentIndex: -1,
+			currentItem: {},
+		};
 	},
 	methods: {
 		addCheckout(item) {
@@ -83,7 +94,6 @@ export default {
 			if (filtered.length == 0) {
 				this.checkouts.push({
 					title: item.title,
-					id: this.uuid4(),
 					movieId: item.movieId,
 					type: item.type,
 					cost: item.cost,
@@ -101,23 +111,26 @@ export default {
 			this.checkouts = [];
 		},
 
-		add(checkoutId) {
-			let filtered = this.checkouts.filter((x) => x.id == checkoutId);
-			filtered[0].amount++;
+		add() {
+			this.currentItem.amount++;
 			this.updateCheckoutList();
 		},
 
-		subtract(checkoutId) {
-			let filtered = this.checkouts.filter((x) => x.id == checkoutId);
-			if (filtered[0].amount > 1) {
-				filtered[0].amount--;
+		subtract() {
+			if (this.currentItem.amount > 1) {
+				this.currentItem.amount--;
 			}
 
 			this.updateCheckoutList();
 		},
 
-		remove(checkoutId) {
-			this.checkouts = this.checkouts.filter((x) => x.id != checkoutId);
+		remove() {
+			this.checkouts = this.checkouts.filter(
+				(x) => x != this.currentItem
+			);
+
+			this.currentItem = {};
+			this.currentIndex = -1;
 			this.updateCheckoutList();
 		},
 
@@ -139,19 +152,14 @@ export default {
 			this.count = count;
 		},
 
-		uuid4() {
-			const ho = (n, p) => n.toString(16).padStart(p, 0);
-			const view = new DataView(new ArrayBuffer(16));
-			crypto.getRandomValues(new Uint8Array(view.buffer));
-			view.setUint8(6, (view.getUint8(6) & 0xf) | 0x40);
-			view.setUint8(8, (view.getUint8(8) & 0x3f) | 0x80);
-			return `${ho(view.getUint32(0), 8)}-${ho(
-				view.getUint16(4),
-				4
-			)}-${ho(view.getUint16(6), 4)}-${ho(view.getUint16(8), 4)}-${ho(
-				view.getUint32(10),
-				8
-			)}${ho(view.getUint16(14), 4)}`;
+		setActive(item, index) {
+			if (this.currentIndex == index) {
+				this.currentIndex = -1;
+				this.currentItem = {};
+			} else {
+				this.currentIndex = index;
+				this.currentItem = item;
+			}
 		},
 	},
 

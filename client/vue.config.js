@@ -1,6 +1,6 @@
 const path = require("path");
 
 module.exports = {
-	outputDir: "../server/public",
-	publicPath: ""
+    outputDir: "../server/public",
+    publicPath: ""
 };

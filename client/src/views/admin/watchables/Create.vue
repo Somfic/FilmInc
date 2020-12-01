@@ -6,15 +6,12 @@
 </template>
 
 <script>
-import AddWatchable from "../components/admin/AddWatchable";
+import AddWatchable from "../components/admin/watchable/AddWatchable";
 
 export default {
 	name: "Admin",
 	components: {
 		AddWatchable,
-	},
-	data() {
-		
 	},
 };
 </script>

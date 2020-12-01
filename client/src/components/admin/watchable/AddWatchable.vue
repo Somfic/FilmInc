@@ -57,8 +57,7 @@
 					</div>
 				</form>
 			</div>
-			<div class="col-auto border-left pr-0 pl-0"></div>
-			<div class="col">
+			<div class="col-9">
 				<Watchable
 					:title="title"
 					:description="description"

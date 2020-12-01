@@ -1,15 +1,26 @@
 <template>
-	<div class="btn-group">
-		<button class="btn btn-primary" v-on:click="execute">
-			{{ message }}
-		</button>
-		<button class="btn btn-light" v-if="isLoading">
-			<Spinner
-				:isShown="isLoading"
-				:isSuccess="isSuccess"
-				:isFailed="isFailed"
-			></Spinner>
-		</button>
+	<div class="list-group my-3">
+		<div class="list-group-item">
+			<div class="btn-group">
+				<button class="btn btn-dark" v-on:click="execute">
+					{{ message }}
+				</button>
+				<button
+					class="btn btn-dark"
+					v-if="isLoading"
+					v-on:click="toggleResult"
+				>
+					<Spinner
+						:isShown="isLoading"
+						:isSuccess="isSuccess"
+						:isFailed="isFailed"
+					></Spinner>
+				</button>
+			</div>
+		</div>
+		<div class="list-group-item" v-if="showResult">
+			<pre><code >{{ result }}</code></pre>
+		</div>
 	</div>
 </template>
 <script>
@@ -29,6 +40,8 @@ export default {
 			isLoading: false,
 			isFailed: false,
 			isSuccess: false,
+			showResult: false,
+			result: "",
 		};
 	},
 	methods: {
@@ -41,12 +54,17 @@ export default {
 				.call()
 				.then((res) => {
 					this.isSuccess = true;
-					console.log(res);
+					this.result = res;
 				})
 				.catch((err) => {
+					console.log(err.data);
 					this.isFailed = true;
-					console.log(err);
+					this.result = err;
 				});
+		},
+
+		toggleResult() {
+			this.showResult = !this.showResult;
 		},
 	},
 };
