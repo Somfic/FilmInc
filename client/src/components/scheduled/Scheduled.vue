@@ -7,52 +7,54 @@
 				</div>
 			</div>
 			<div class="col">
-				<span class="h5 m-0">{{ title }} </span>
-				<p>
-					<span
-						v-if="classification == 'AL'"
-						class="badge badge-success"
+				<div class="align-self-center">
+					<span class="h5 m-0">{{ title }} </span>
+					<p class="m-0">
+						<span
+							v-if="classification == 'AL'"
+							class="badge badge-success"
+						>
+							{{ classification }}
+						</span>
+						<span
+							v-if="classification == '6+'"
+							class="badge badge-secondary"
+						>
+							{{ classification }}
+						</span>
+						<span
+							v-if="classification == '9+'"
+							class="badge badge-secondary"
+						>
+							{{ classification }}
+						</span>
+						<span
+							v-if="classification == '12+'"
+							class="badge badge-secondary"
+						>
+							{{ classification }}
+						</span>
+						<span
+							v-if="classification == '16+'"
+							class="badge badge-warning"
+						>
+							{{ classification }}
+						</span>
+						<span
+							v-if="classification == '18+'"
+							class="badge badge-danger"
+						>
+							{{ classification }}
+						</span>
+					</p>
+					<span class="font-weight-bold"
+						>{{ start_time }} - {{ end_time }}</span
 					>
-						{{ classification }}
-					</span>
-					<span
-						v-if="classification == '6+'"
-						class="badge badge-secondary"
-					>
-						{{ classification }}
-					</span>
-					<span
-						v-if="classification == '9+'"
-						class="badge badge-secondary"
-					>
-						{{ classification }}
-					</span>
-					<span
-						v-if="classification == '12+'"
-						class="badge badge-secondary"
-					>
-						{{ classification }}
-					</span>
-					<span
-						v-if="classification == '16+'"
-						class="badge badge-warning"
-					>
-						{{ classification }}
-					</span>
-					<span
-						v-if="classification == '18+'"
-						class="badge badge-danger"
-					>
-						{{ classification }}
-					</span>
-				</p>
-				<span class="font-weight-bold"
-					>{{ start_time }} - {{ end_time }}</span
-				>
-				<div>
-					<span v-for="tag in tags" :key="tag" class="badge">
-						{{ tag }}
-					</span>
+					<div>
+						<span v-for="tag in tags" :key="tag" class="badge">
+							{{ tag }}
+						</span>
+					</div>
 				</div>
 			</div>
 			<div class="col-auto">
