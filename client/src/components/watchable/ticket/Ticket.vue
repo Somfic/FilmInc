@@ -1,5 +1,6 @@
 <template>
 	<div
+		v-on:click="clicked"
 		class="ticket list-group-item list-group-item-action text-nowrap text-center"
 	>
 		<p class="mb-1">{{ name }}</p>
@@ -13,6 +14,11 @@ export default {
 	props: {
 		name: String,
 		cost: String,
+	},
+	methods: {
+		clicked() {
+			this.$emit("clicked", { type: this.name, cost: this.cost });
+		},
 	},
 };
 </script>

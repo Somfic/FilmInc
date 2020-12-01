@@ -1,5 +1,13 @@
 <template>
 	<div class="project-info">
+		<div class="alert alert-info" role="alert">
+			<strong>Applicatie?</strong><br />
+			<span
+				>Klik <a href="../">hier</a> om terug te gaan naar de applicatie
+			</span>
+		</div>
+
+		<div class="row"></div>
 		<h1>Projectbeschrijving</h1>
 		<p>Lucas de Jong <span class="badge badge-secondary">2158725</span></p>
 		<p>
