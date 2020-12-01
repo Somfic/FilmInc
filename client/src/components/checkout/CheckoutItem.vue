@@ -17,16 +17,22 @@
 			<div class="col-auto align-self-center">
 				<span>€ {{ cost }}</span>
 			</div>
-			<div class="col-auto">
+			<div class="col-auto" v-if="isEditing">
 				<div class="btn-group-vertical" role="group">
-					<button class="btn h-100 text-muted py-0 px-3">
+					<button
+						class="btn h-100 text-muted py-0 px-3"
+						v-on:click.stop="add"
+					>
 						<i class="fas fa-caret-up"></i>
 					</button>
-					<button class="btn h-100 text-muted py-0 px-3">
+					<button
+						class="btn h-100 text-muted py-0 px-3"
+						v-on:click.stop="subtract"
+					>
 						<i class="fas fa-caret-down"></i>
 					</button>
 				</div>
-				<button class="btn h-100 text-muted">
+				<button class="btn h-100 text-muted" v-on:click.stop="remove">
 					<i class="fas fa-ban"></i>
 				</button>
 			</div>
@@ -39,6 +45,7 @@ export default {
 	name: "CheckoutItem",
 	props: {
 		id: String,
+		movieId: String,
 		title: String,
 		type: String,
 		amount: Number,
@@ -46,13 +53,24 @@ export default {
 	},
 	data() {
 		return {
-			isEditing: true,
+			isEditing: false,
 		};
 	},
 	methods: {
-		clicked: () => {
-			console.log("switch");
+		clicked() {
 			this.isEditing = !this.isEditing;
+		},
+
+		add() {
+			this.$emit("add", this.id);
+		},
+
+		subtract() {
+			this.$emit("subtract", this.id);
+		},
+
+		remove() {
+			this.$emit("remove", this.id);
 		},
 	},
 };

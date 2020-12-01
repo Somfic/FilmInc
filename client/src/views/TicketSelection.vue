@@ -27,11 +27,15 @@
 					<CheckoutItem
 						v-for="checkout in checkouts"
 						:key="checkout"
+						:movieId="checkout.movieId"
 						:id="checkout.id"
 						:title="checkout.title"
 						:type="checkout.type"
 						:cost="checkout.cost"
 						:amount="checkout.amount"
+						@add="add"
+						@subtract="subtract"
+						@remove="remove"
 					></CheckoutItem>
 					<CheckoutTotal
 						v-if="checkouts.length > 0"
@@ -70,31 +74,62 @@ export default {
 	methods: {
 		addCheckout(item) {
 			let filtered = this.checkouts.filter(
-				(x) => x.id == item.id && x.type == item.type
+				(x) => x.movieId == item.movieId && x.type == item.type
 			);
 
 			if (filtered.length == 0) {
 				this.checkouts.push({
 					title: item.title,
-					id: item.id,
+					id: this.uuid4(),
+					movieId: item.movieId,
 					type: item.type,
 					cost: item.cost,
+					costOne: item.cost,
 					amount: 1,
 				});
 			} else {
 				filtered[0].amount++;
-				filtered[0].cost = (
-					parseFloat(filtered[0].cost.toString().replace(",", ".")) +
-					parseFloat(item.cost.replace(",", "."))
+			}
+
+			this.updateCheckoutList();
+		},
+
+		cancel() {
+			this.checkouts = [];
+		},
+
+		add(checkoutId) {
+			let filtered = this.checkouts.filter((x) => x.id == checkoutId);
+			filtered[0].amount++;
+			this.updateCheckoutList();
+		},
+
+		subtract(checkoutId) {
+			let filtered = this.checkouts.filter((x) => x.id == checkoutId);
+			filtered[0].amount--;
+			if (filtered[0].amount <= 0) {
+				this.remove(checkoutId);
+			} else {
+				this.updateCheckoutList();
+			}
+		},
+
+		remove(checkoutId) {
+			this.checkouts = this.checkouts.filter((x) => x.id != checkoutId);
+			this.updateCheckoutList();
+		},
+
+		updateCheckoutList() {
+			let total = 0;
+			this.checkouts.forEach((item) => {
+				item.cost = (
+					parseInt(item.amount.toString().replace(",", ".")) *
+					parseInt(item.costOne.toString().replace(",", "."))
 				)
 					.toFixed(2)
 					.replace(".", ",");
-			}
-
-			let total = 0;
-			this.checkouts.forEach(
-				(x) => (total += parseFloat(x.cost.replace(",", ".")))
-			);
+				total += parseFloat(item.cost.toString().replace(",", "."));
+			});
 			this.total = total.toFixed(2).replace(".", ",");
 
 			let count = 0;
@@ -102,8 +137,19 @@ export default {
 			this.count = count;
 		},
 
-		cancel() {
-			this.checkouts = [];
+		uuid4() {
+			const ho = (n, p) => n.toString(16).padStart(p, 0);
+			const view = new DataView(new ArrayBuffer(16));
+			crypto.getRandomValues(new Uint8Array(view.buffer));
+			view.setUint8(6, (view.getUint8(6) & 0xf) | 0x40);
+			view.setUint8(8, (view.getUint8(8) & 0x3f) | 0x80);
+			return `${ho(view.getUint32(0), 8)}-${ho(
+				view.getUint16(4),
+				4
+			)}-${ho(view.getUint16(6), 4)}-${ho(view.getUint16(8), 4)}-${ho(
+				view.getUint32(10),
+				8
+			)}${ho(view.getUint16(14), 4)}`;
 		},
 	},
 
