@@ -44,7 +44,7 @@ export default {
 					console.log(res);
 				})
 				.catch((err) => {
-					//this.isFailed = true;
+					this.isFailed = true;
 					console.log(err);
 				});
 		},
