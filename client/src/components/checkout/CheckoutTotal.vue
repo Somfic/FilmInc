@@ -16,7 +16,7 @@ export default {
 	name: "CheckoutTotal",
 	props: {
 		cost: String,
-		count: String,
+		count: Number,
 	},
 };
 </script>

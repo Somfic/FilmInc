@@ -13,5 +13,8 @@ export default {
 	components: {
 		AddWatchable,
 	},
+	data() {
+		
+	},
 };
 </script>

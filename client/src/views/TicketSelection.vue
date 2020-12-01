@@ -24,11 +24,6 @@
 			</div>
 			<div class="col">
 				<div class="list-group">
-					<CheckoutTotal
-						v-if="checkouts.length > 1"
-						:cost="total"
-						:count="checkouts.length"
-					></CheckoutTotal>
 					<CheckoutItem
 						v-for="checkout in checkouts"
 						:key="checkout"
@@ -36,11 +31,12 @@
 						:title="checkout.title"
 						:type="checkout.type"
 						:cost="checkout.cost"
+						:amount="checkout.amount"
 					></CheckoutItem>
 					<CheckoutTotal
-						v-if="checkouts.length > 1"
+						v-if="checkouts.length > 0"
 						:cost="total"
-						:count="checkouts.length"
+						:count="count"
 					></CheckoutTotal>
 					<CheckoutOptions
 						v-if="checkouts.length > 0"
@@ -69,26 +65,45 @@ export default {
 		CheckoutOptions,
 	},
 	data() {
-		return { watchables: [], checkouts: [], total: 0.0 };
+		return { watchables: [], checkouts: [], total: 0.0, count: 0 };
 	},
 	methods: {
 		addCheckout(item) {
-			this.checkouts.push({
-				title: item.title,
-				id: item.id,
-				type: item.type,
-				cost: item.cost,
-			});
+			let filtered = this.checkouts.filter(
+				(x) => x.id == item.id && x.type == item.type
+			);
+
+			if (filtered.length == 0) {
+				this.checkouts.push({
+					title: item.title,
+					id: item.id,
+					type: item.type,
+					cost: item.cost,
+					amount: 1,
+				});
+			} else {
+				filtered[0].amount++;
+				filtered[0].cost = (
+					parseFloat(filtered[0].cost.toString().replace(",", ".")) +
+					parseFloat(item.cost.replace(",", "."))
+				)
+					.toFixed(2)
+					.replace(".", ",");
+			}
 
 			let total = 0;
 			this.checkouts.forEach(
 				(x) => (total += parseFloat(x.cost.replace(",", ".")))
 			);
 			this.total = total.toFixed(2).replace(".", ",");
+
+			let count = 0;
+			this.checkouts.forEach((x) => (count += parseInt(x.amount)));
+			this.count = count;
 		},
 
 		cancel() {
-			this.checkouts = [	];
+			this.checkouts = [];
 		},
 	},
 

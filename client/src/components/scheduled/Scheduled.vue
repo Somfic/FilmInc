@@ -10,42 +10,8 @@
 				<div class="align-self-center">
 					<span class="h5 m-0">{{ title }} </span>
 					<p class="m-0">
-						<span
-							v-if="classification == 'AL'"
-							class="badge badge-success"
-						>
-							{{ classification }}
-						</span>
-						<span
-							v-if="classification == '6+'"
-							class="badge badge-secondary"
-						>
-							{{ classification }}
-						</span>
-						<span
-							v-if="classification == '9+'"
-							class="badge badge-secondary"
-						>
-							{{ classification }}
-						</span>
-						<span
-							v-if="classification == '12+'"
-							class="badge badge-secondary"
-						>
-							{{ classification }}
-						</span>
-						<span
-							v-if="classification == '16+'"
-							class="badge badge-warning"
-						>
-							{{ classification }}
-						</span>
-						<span
-							v-if="classification == '18+'"
-							class="badge badge-danger"
-						>
-							{{ classification }}
-						</span>
+						<Badge :content="classification"></Badge
+						><Badge content="3D"></Badge>
 					</p>
 					<span class="font-weight-bold"
 						>{{ start_time }} - {{ end_time }}</span
@@ -81,7 +47,8 @@
 </template>
 
 <script>
-import Ticket from "../watchable/ticket/Ticket";
+import Ticket from "./ticket/Ticket";
+import Badge from "../badges/Badge";
 
 export default {
 	name: "Scheduled",
@@ -96,6 +63,7 @@ export default {
 	},
 	components: {
 		Ticket,
+		Badge,
 	},
 	methods: {
 		ticketSelected(selected) {

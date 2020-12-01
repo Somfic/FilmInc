@@ -1,15 +1,22 @@
 <template>
 	<div class="add-watchable">
 		<div class="preview">
-			<Watchable :title="title"></Watchable>
-			<p>{{ titlemessage }}</p>
+			title: String, description: String, poster: String, length: Number,
+			classification: String, variations: Array,
+
+			<Watchable
+				:title="title"
+				:description="description"
+				:poster="poster"
+				:length="length"
+			></Watchable>
 		</div>
 		<form>
 			<div class="row">
 				<div class="form-group col-4">
 					<label for="title">Titel</label>
 					<input
-						v-model="titlemessage"
+						v-model="title"
 						type="text"
 						class="form-control"
 						id="title"
@@ -73,6 +80,15 @@ export default {
 	name: "AddWatchable",
 	components: {
 		Watchable,
+	},
+	data() {
+		return {
+			title: "",
+			length: 0,
+			poster: "",
+			description: "",
+			classification: "",
+		};
 	},
 };
 </script>
