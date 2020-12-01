@@ -56,7 +56,7 @@
 				</div>
 			</div>
 			<div class="col-auto">
-				<div class="list-group list-group-horizontal">
+				<div class="list-group list-group-horizontal h-100">
 					<Ticket
 						@clicked="ticketSelected"
 						name="Standaard"
