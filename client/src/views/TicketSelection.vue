@@ -44,6 +44,7 @@
 					></CheckoutTotal>
 					<CheckoutOptions
 						v-if="checkouts.length > 0"
+						@cancel="cancel"
 					></CheckoutOptions>
 				</div>
 			</div>
@@ -84,6 +85,10 @@ export default {
 				(x) => (total += parseFloat(x.cost.replace(",", ".")))
 			);
 			this.total = total.toFixed(2).replace(".", ",");
+		},
+
+		cancel() {
+			this.checkouts = [	];
 		},
 	},
 
