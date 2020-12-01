@@ -13,16 +13,6 @@
 			<div class="col">
 				<button
 					role="button"
-					v-on:click="edit"
-					class="btn btn-secondary w-100 py-3"
-				>
-					<i class="fas fa-pen"></i>
-				</button>
-			</div>
-
-			<div class="col">
-				<button
-					role="button"
 					v-on:click="next"
 					class="btn btn-primary w-100 py-3"
 				>
