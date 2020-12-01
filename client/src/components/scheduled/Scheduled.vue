@@ -1,65 +1,79 @@
 <template>
-	<div
-		class="scheduled list-group-item align-items-start d-flex align-items-center"
-	>
-		<div class="d-flex col-1 p-0">
-			<img class="img-fluid" :src="poster" alt="" />
-		</div>
-		<div class="details col-3 d-flex flex-column">
-			<span class="h5 m-0">{{ title }} </span>
-			<p>
-				<span v-if="classification == 'AL'" class="badge badge-success">
-					{{ classification }}
-				</span>
-				<span
-					v-if="classification == '6+'"
-					class="badge badge-secondary"
-				>
-					{{ classification }}
-				</span>
-				<span
-					v-if="classification == '9+'"
-					class="badge badge-secondary"
-				>
-					{{ classification }}
-				</span>
-				<span
-					v-if="classification == '12+'"
-					class="badge badge-secondary"
-				>
-					{{ classification }}
-				</span>
-				<span
-					v-if="classification == '16+'"
-					class="badge badge-warning"
-				>
-					{{ classification }}
-				</span>
-				<span v-if="classification == '18+'" class="badge badge-danger">
-					{{ classification }}
-				</span>
-			</p>
-			<span class="font-weight-bold"
-				>{{ start_time }} - {{ end_time }}</span
-			>
-			<div>
-				<span v-for="tag in tags" :key="tag" class="badge">
-					{{ tag }}
-				</span>
+	<div class="list-group-item">
+		<div class="row">
+			<div class="col-auto">
+				<div class="p-0">
+					<img class="img-fluid" width="70" :src="poster" alt="" />
+				</div>
 			</div>
-		</div>
-		<div class="tickets list-group list-group-horizontal">
-			<ticket
-				@clicked="ticketSelected"
-				name="Standaard"
-				cost="7,50"
-			></ticket>
-			<ticket @clicked="ticketSelected" name="Kind" cost="5,00"></ticket>
-			<ticket
-				@clicked="ticketSelected"
-				name="Familie"
-				cost="25,00"
-			></ticket>
+			<div class="col">
+				<span class="h5 m-0">{{ title }} </span>
+				<p>
+					<span
+						v-if="classification == 'AL'"
+						class="badge badge-success"
+					>
+						{{ classification }}
+					</span>
+					<span
+						v-if="classification == '6+'"
+						class="badge badge-secondary"
+					>
+						{{ classification }}
+					</span>
+					<span
+						v-if="classification == '9+'"
+						class="badge badge-secondary"
+					>
+						{{ classification }}
+					</span>
+					<span
+						v-if="classification == '12+'"
+						class="badge badge-secondary"
+					>
+						{{ classification }}
+					</span>
+					<span
+						v-if="classification == '16+'"
+						class="badge badge-warning"
+					>
+						{{ classification }}
+					</span>
+					<span
+						v-if="classification == '18+'"
+						class="badge badge-danger"
+					>
+						{{ classification }}
+					</span>
+				</p>
+				<span class="font-weight-bold"
+					>{{ start_time }} - {{ end_time }}</span
+				>
+				<div>
+					<span v-for="tag in tags" :key="tag" class="badge">
+						{{ tag }}
+					</span>
+				</div>
+			</div>
+			<div class="col-auto">
+				<div class="list-group list-group-horizontal">
+					<Ticket
+						@clicked="ticketSelected"
+						name="Standaard"
+						cost="7,50"
+					></Ticket>
+					<Ticket
+						@clicked="ticketSelected"
+						name="Kind"
+						cost="5,00"
+					></Ticket>
+					<Ticket
+						@clicked="ticketSelected"
+						name="Familie"
+						cost="25,00"
+					></Ticket>
+				</div>
+			</div>
 		</div>
 	</div>
 </template>

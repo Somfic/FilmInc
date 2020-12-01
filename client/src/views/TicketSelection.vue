@@ -24,6 +24,11 @@
 			</div>
 			<div class="col">
 				<div class="list-group">
+					<CheckoutTotal
+						v-if="checkouts.length > 1"
+						:cost="total"
+						:count="checkouts.length"
+					></CheckoutTotal>
 					<CheckoutItem
 						v-for="checkout in checkouts"
 						:key="checkout"
@@ -32,7 +37,14 @@
 						:type="checkout.type"
 						:cost="checkout.cost"
 					></CheckoutItem>
-					<CheckoutTotal :cost="total"></CheckoutTotal>
+					<CheckoutTotal
+						v-if="checkouts.length > 1"
+						:cost="total"
+						:count="checkouts.length"
+					></CheckoutTotal>
+					<CheckoutOptions
+						v-if="checkouts.length > 0"
+					></CheckoutOptions>
 				</div>
 			</div>
 		</div>
@@ -44,6 +56,7 @@
 import Scheduled from "../components/scheduled/Scheduled";
 import CheckoutItem from "../components/checkout/CheckoutItem";
 import CheckoutTotal from "../components/checkout/CheckoutTotal";
+import CheckoutOptions from "../components/checkout/CheckoutOptions";
 import watchableService from "../services/watchable";
 
 export default {
@@ -52,6 +65,7 @@ export default {
 		Scheduled,
 		CheckoutItem,
 		CheckoutTotal,
+		CheckoutOptions,
 	},
 	data() {
 		return { watchables: [], checkouts: [], total: 0.0 };
