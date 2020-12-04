@@ -3,10 +3,15 @@ const logger = require("../../logging/logger");
 const Watchable = require("../../models/Watchable");
 
 module.exports = async(req, res, next) => {
-    logger.trace("Controller: watchable.list");
+    logger.trace("Controller: watchable.dupe");
 
     try {
-        let result = await Watchable.find();
+        let id = req.params.id;
+        let originalResult = await Watchable.findById(id);
+        let original = originalResult._doc;
+        delete original._id;
+        let result = await Watchable.create(original);
+
         res.status(200).json(result);
     } catch (err) {
         next(ServerError.badRequest(err));
