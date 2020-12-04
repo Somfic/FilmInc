@@ -18,6 +18,7 @@ app.use(require("./src/logging/loggerHandler"));
 
 // Routes
 app.use("/api/watchable", require("./src/routes/watchable"));
+app.use("/api/scheduled", require("./src/routes/scheduled"));
 
 // Error handling
 app.use(require("./src/error/errorHandler.js"));
@@ -27,7 +28,7 @@ app.use(express.static(path.resolve(__dirname, "public/")));
 
 // Send to client in case of invalid url
 app.get(/.*/, (req, res) => {
-	res.sendFile(path.resolve(__dirname, "public/index.html"));
+    res.sendFile(path.resolve(__dirname, "public/index.html"));
 });
 
 // Setup Vue Router History fallback
@@ -38,6 +39,6 @@ database.connect();
 
 // Start server
 app.listen(config.port, () => {
-	logger.info(`Server initiated on port ${config.port}`);
-	logger.debug(`Mode: ${config.mode}`);
+    logger.info(`Server initiated on port ${config.port}`);
+    logger.debug(`Mode: ${config.mode}`);
 });
