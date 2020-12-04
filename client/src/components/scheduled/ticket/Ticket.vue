@@ -1,11 +1,13 @@
 <template>
-	<button
-		v-on:click="clicked"
-		class="ticket list-group-item list-group-item-action text-center"
-	>
-		<p class="mb-1">{{ name }}</p>
-		<small class="text-muted">€ {{ cost }}</small>
-	</button>
+  <button
+    class="ticket list-group-item list-group-item-action text-center"
+    @click="clicked"
+  >
+    <p class="mb-1">
+      {{ name }}
+    </p>
+    <small class="text-muted">€ {{ cost }}</small>
+  </button>
 </template>
 
 <script>

@@ -1,7 +1,10 @@
 <template>
-	<span class="badge" v-bind:class="getClass()">
-		{{ content }}
-	</span>
+  <span
+    class="badge"
+    :class="getClass()"
+  >
+    {{ content }}
+  </span>
 </template>
 
 

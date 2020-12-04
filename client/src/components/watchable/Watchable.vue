@@ -4,14 +4,16 @@
 			<div class="card-header border-0 col-auto">
 				<img class="img-thumbnail" :src="poster" alt="" />
 			</div>
-			<div class="card-block m-3 px-2 col">
+			<div class="card-block m-3 px-2 col w-100">
 				<h1>{{ title }}</h1>
-				<p class="card-text">{{ description }}</p>
+				<p class="card-text">
+					{{ description }}
+				</p>
 			</div>
 		</div>
 		<div class="row m-0 card-footer">
-			<Badge :content="classification"></Badge>
-			<Badge :content="length + ' min'"></Badge>
+			<Badge :content="classification" />
+			<Badge :content="length + ' min'" />
 		</div>
 	</div>
 </template>

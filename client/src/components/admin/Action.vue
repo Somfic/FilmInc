@@ -1,25 +1,30 @@
 <template>
 	<div class="list-group my-3">
 		<div class="list-group-item">
-			<div class="btn-group">
-				<button class="btn btn-dark" v-on:click="execute">
-					{{ message }}
+			<div v-for="action in actions" :key="action" class="btn-group mr-3">
+				<button
+					class="btn px-3"
+					@click="execute(action)"
+					:class="action.class"
+				>
+					{{ action.message }}
 				</button>
 				<button
-					class="btn btn-dark"
-					v-if="isLoading"
-					v-on:click="toggleResult"
+					v-if="action.isLoading"
+					class="btn"
+					:class="action.class"
+					@click="toggleResult"
 				>
 					<Spinner
-						:isShown="isLoading"
-						:isSuccess="isSuccess"
-						:isFailed="isFailed"
-					></Spinner>
+						:is-shown="action.isLoading"
+						:is-success="action.isSuccess"
+						:is-failed="action.isFailed"
+					/>
 				</button>
 			</div>
 		</div>
-		<div class="list-group-item" v-if="showResult">
-			<pre><code >{{ result }}</code></pre>
+		<div v-if="showResult && result != ''" class="list-group-item">
+			<pre><code>{{ result }}</code></pre>
 		</div>
 	</div>
 </template>
@@ -32,34 +37,34 @@ export default {
 		Spinner,
 	},
 	props: {
-		message: String,
-		action: Function,
+		actions: Array,
 	},
 	data() {
 		return {
-			isLoading: false,
-			isFailed: false,
-			isSuccess: false,
-			showResult: false,
+			showResult: true,
 			result: "",
 		};
 	},
 	methods: {
-		execute() {
-			this.isLoading = true;
-			this.isFailed = false;
-			this.isSuccess = false;
+		execute(item) {
+			this.actions.forEach((x) => (x.isLoading = false));
 
-			this.action
+			item.isLoading = true;
+			item.isFailed = false;
+			item.isSuccess = false;
+			item.result = "";
+
+			item.action
 				.call()
 				.then((res) => {
-					this.isSuccess = true;
+					item.isSuccess = true;
 					this.result = res;
+					this.$emit("executed");
 				})
 				.catch((err) => {
-					console.log(err.data);
-					this.isFailed = true;
+					item.isFailed = true;
 					this.result = err;
+					this.$emit("executed");
 				});
 		},
 

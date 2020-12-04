@@ -1,11 +1,11 @@
 <template>
-	<div
-		v-if="isShown"
-		class="circle-loader"
-		v-bind:class="{ success: isSuccess, failed: isFailed }"
-	>
-		<div class="status draw"></div>
-	</div>
+  <div
+    v-if="isShown"
+    class="circle-loader"
+    :class="{ success: isSuccess, failed: isFailed }"
+  >
+    <div class="status draw" />
+  </div>
 </template>
 <script>
 export default {
