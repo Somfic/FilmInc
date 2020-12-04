@@ -12,4 +12,7 @@
 .list-group-item-action {
 	cursor: pointer !important;
 }
+pre {
+	white-space: pre-wrap;
+}
 </style>

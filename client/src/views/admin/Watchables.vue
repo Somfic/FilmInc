@@ -60,13 +60,13 @@
 </template>
 
 <script>
-import Watchable from "../../../components/watchable/Watchable";
-import EditWatchable from "../../../components/admin/watchable/EditWatchable";
-import Action from "../../../components/admin/Action";
-import watchableService from "../../../services/watchable";
+import Watchable from "../../components/watchable/Watchable";
+import EditWatchable from "../../components/watchable/EditWatchable";
+import Action from "../../components/action/Action";
+import watchableService from "../../services/watchable";
 
 export default {
-	name: "WatchablesList",
+	name: "Watchables",
 	components: { Watchable, Action, EditWatchable },
 	data() {
 		return {
@@ -151,6 +151,7 @@ export default {
 		finishEditing() {
 			this.isNew = false;
 			this.isEditing = false;
+			this.executed();
 		},
 		hasEdited(item) {
 			this.currentItem = item;

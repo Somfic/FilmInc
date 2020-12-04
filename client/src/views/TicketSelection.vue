@@ -1,59 +1,61 @@
 <template>
-  <div class="ticket-selection">
-    <div
-      class="alert alert-info"
-      role="alert"
-    >
-      <strong>Project informatie?</strong><br>
-      <span>Klik <a href="/project">hier</a> om naar projectinformatie te
-        gaan</span>
-    </div>
-    <div class="row gap-1">
-      <div class="col-auto">
-        <div class="list-group">
-          <Scheduled
-            v-for="watchable in watchables"
-            :id="watchable._id"
-            :key="watchable"
-            :poster="watchable.poster"
-            :title="watchable.title"
-            :classification="watchable.classification"
-            @ticket-selected="addCheckout"
-          />
-        </div>
-      </div>
-      <div class="col">
-        <div class="list-group">
-          <CheckoutItem
-            v-for="(item, index) in checkouts"
-            :id="item.id"
-            :key="item"
-            :movie-id="item.movieId"
-            :title="item.title"
-            :type="item.type"
-            :cost="item.cost"
-            :amount="item.amount"
-            :class="{ 'bg-light': index == currentIndex }"
-            :is-editing="index == currentIndex"
-            @click="setActive(item, index)"
-            @add="add"
-            @subtract="subtract"
-            @remove="remove"
-          />
-          <CheckoutTotal
-            v-if="checkouts.length > 0"
-            :cost="total"
-            :count="count"
-            @click="setActive(null, -1)"
-          />
-          <CheckoutOptions
-            v-if="checkouts.length > 0"
-            @cancel="cancel"
-          />
-        </div>
-      </div>
-    </div>
-  </div>
+	<div class="ticket-selection">
+		<div class="alert alert-info" role="alert">
+			<strong>Project informatie?</strong><br />
+			<span
+				>Klik <a href="/project">hier</a> om naar projectinformatie te
+				gaan</span
+			>
+		</div>
+		<div class="row gap-1">
+			<div class="col-auto">
+				<div class="list-group">
+					<Scheduled
+						v-for="watchable in watchables"
+						:id="watchable._id"
+						:key="watchable"
+						:poster="watchable.poster"
+						:title="watchable.title"
+						:classification="watchable.classification"
+						@ticket-selected="addCheckout"
+					/>
+				</div>
+			</div>
+			<div class="col">
+				<div
+					class="list-group sticky-top pt-3"
+					style="margin-top: -1rem"
+				>
+					<CheckoutItem
+						v-for="(item, index) in checkouts"
+						:id="item.id"
+						:key="item"
+						:movie-id="item.movieId"
+						:title="item.title"
+						:type="item.type"
+						:cost="item.cost"
+						:amount="item.amount"
+						:class="{ 'bg-light': index == currentIndex }"
+						:is-editing="index == currentIndex"
+						@click="setActive(item, index)"
+						@add="add"
+						@subtract="subtract"
+						@remove="remove"
+					/>
+					<CheckoutTotal
+						v-if="checkouts.length > 0"
+						:cost="total"
+						:count="count"
+						@click="setActive(null, -1)"
+					/>
+					<CheckoutOptions
+						v-if="checkouts.length > 0"
+						@cancel="cancel"
+					/>
+				</div>
+			</div>
+		</div>
+	</div>
 </template>
 
 

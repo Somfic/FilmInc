@@ -16,7 +16,7 @@ const routes = [{
         path: "/watchables",
         name: "Watchable",
         component: () =>
-            import ("../views/admin/watchables/Index.vue")
+            import ("../views/admin/Watchables.vue")
     }
 ];
 

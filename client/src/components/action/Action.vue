@@ -29,7 +29,7 @@
 	</div>
 </template>
 <script>
-import Spinner from "../spinner/Spinner";
+import Spinner from "./Spinner";
 
 export default {
 	name: "Action",
