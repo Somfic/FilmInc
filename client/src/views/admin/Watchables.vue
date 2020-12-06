@@ -1,5 +1,5 @@
 <template>
-	<div class="watchablelist">
+	<div class="watchable">
 		<div class="row">
 			<div class="col-3">
 				<div v-if="!isEditing" class="list-group">
@@ -42,16 +42,19 @@
 				<Action
 					v-if="!isEditing"
 					:actions="normalActions"
+					:reset="reset"
 					@executed="executed"
 				></Action>
 				<Action
 					v-if="isEditing && !isNew"
 					:actions="editingActions"
+					:reset="reset"
 					@executed="executed"
 				></Action>
 				<Action
 					v-if="isEditing && isNew"
 					:actions="newActions"
+					:reset="reset"
 					@executed="executedNew"
 				></Action>
 			</div>
@@ -70,6 +73,7 @@ export default {
 	components: { Watchable, Action, EditWatchable },
 	data() {
 		return {
+			reset: Date.now(),
 			items: [],
 			currentIndex: -1,
 			currentItem: null,
@@ -135,8 +139,6 @@ export default {
 		executedNew() {
 			watchableService.get().then((res) => {
 				this.items = res.data;
-				this.currentIndex = this.items.length - 1;
-				this.currentItem = this.items[this.currentIndex];
 			});
 		},
 		startNew() {

@@ -11,7 +11,7 @@
 				</button>
 				<button
 					v-if="action.isLoading"
-					class="btn"
+					class="btn d-flex align-items-center pl-0 px-3"
 					:class="action.class"
 					@click="toggleResult"
 				>
@@ -19,22 +19,38 @@
 						:is-shown="action.isLoading"
 						:is-success="action.isSuccess"
 						:is-failed="action.isFailed"
+						v-if="action.isLoading || resultCode != ''"
 					/>
+					<span
+						v-if="resultCode != ''"
+						class="ml-2 font-weight-bold"
+						v-bind:class="{
+							'success-text': action.isSuccess,
+							'failed-text': action.isFailed,
+						}"
+						>{{ resultCode }}</span
+					>
 				</button>
 			</div>
 		</div>
-		<div v-if="showResult && result != ''" class="list-group-item">
-			<pre><code>{{ result }}</code></pre>
+		<div
+			v-if="result != null"
+			v-bind:class="{ 'd-none': !showResult }"
+			class="list-group-item p-0 m-0"
+		>
+			<Highlight language="json" :content="result"></Highlight>
 		</div>
 	</div>
 </template>
 <script>
 import Spinner from "./Spinner";
+import Highlight from "./Highlight";
 
 export default {
 	name: "Action",
 	components: {
 		Spinner,
+		Highlight,
 	},
 	props: {
 		actions: Array,
@@ -42,7 +58,8 @@ export default {
 	data() {
 		return {
 			showResult: true,
-			result: "",
+			result: null,
+			resultCode: "",
 		};
 	},
 	methods: {
@@ -52,18 +69,21 @@ export default {
 			item.isLoading = true;
 			item.isFailed = false;
 			item.isSuccess = false;
-			item.result = "";
+			this.result = "Pending ...";
+			this.resultCode = "";
 
 			item.action
 				.call()
 				.then((res) => {
 					item.isSuccess = true;
 					this.result = res;
+					this.resultCode = res.status + " " + res.statusText;
 					this.$emit("executed");
 				})
 				.catch((err) => {
 					item.isFailed = true;
 					this.result = err;
+					this.resultCode = err.status + " " + err.statusText;
 					this.$emit("executed");
 				});
 		},
@@ -111,10 +131,18 @@ $cross-offset: ($check-height / $sin45) - $check-height + 0.168;
 	}
 }
 
+.success-text {
+	color: $brand-success;
+}
+
 .success {
 	border-color: $brand-success;
 	transition: all 500ms ease-out;
 	background-color: $brand-success;
+}
+
+.failed-text {
+	color: $brand-failure;
 }
 
 .failed {

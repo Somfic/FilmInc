@@ -1,11 +1,11 @@
 <template>
-  <div
-    v-if="isShown"
-    class="circle-loader"
-    :class="{ success: isSuccess, failed: isFailed }"
-  >
-    <div class="status draw" />
-  </div>
+	<div
+		v-if="isShown"
+		class="circle-loader"
+		:class="{ success: isSuccess, failed: isFailed }"
+	>
+		<div class="status draw" />
+	</div>
 </template>
 <script>
 export default {
@@ -36,7 +36,7 @@ $cross-color: $brand-failure;
 	animation-iteration-count: infinite;
 	animation-timing-function: linear;
 	position: relative;
-	display: block;
+	display: inline-block;
 	margin: 0;
 	padding: 0;
 	&,

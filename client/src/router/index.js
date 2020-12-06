@@ -17,6 +17,12 @@ const routes = [{
         name: "Watchable",
         component: () =>
             import ("../views/admin/Watchables.vue")
+    },
+    {
+        path: "/scheduled",
+        name: "Scheduled",
+        component: () =>
+            import ("../views/admin/Scheduled.vue")
     }
 ];
 

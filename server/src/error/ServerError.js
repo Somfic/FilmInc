@@ -1,28 +1,26 @@
-const { Server } = require("mongodb");
-
 module.exports = class ServerError {
-	constructor(code, message) {
-		this.code = code;
-		this.message = message;
-	}
+    constructor(code, error) {
+        this.code = code;
+        this.error = error;
+    }
 
-	static badRequest(message) {
-		return new ServerError(400, message);
-	}
+    static badRequest(error) {
+        return new ServerError(400, error);
+    }
 
-	static unauthorized(message) {
-		return new ServerError(401, message);
-	}
+    static unauthorized(error) {
+        return new ServerError(401, error);
+    }
 
-	static notFound(message) {
-		return new ServerError(404, message);
-	}
+    static notFound(error) {
+        return new ServerError(404, error);
+    }
 
-	static internalError(message) {
-		return new ServerError(500, message);
-	}
+    static internalError(error) {
+        return new ServerError(500, error);
+    }
 
-	static notImplemented(message) {
-		return new ServerError(501, message);
-	}
+    static notImplemented(error) {
+        return new ServerError(501, error);
+    }
 };

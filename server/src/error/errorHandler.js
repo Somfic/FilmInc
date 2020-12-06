@@ -3,10 +3,10 @@ const logger = require("../logging/logger");
 
 module.exports = (err, req, res, next) => {
     if (err instanceof ServerError) {
-        logger.error(err.message);
-        res.status(err.code).json(err.message);
+        logger.error(`Exception: ${err.error}`);
+        res.status(err.code).json(err);
     } else {
         logger.error(`Unexpected exception: ${err}`);
-        res.status(500).json({ error: err.message });
+        res.status(500).json(err);
     }
 };
