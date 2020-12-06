@@ -9,17 +9,28 @@ module.exports = mongoose.model(
             required: true,
         },
 
-        startTime: {
+        watchableTitle: {
+            type: String,
+            required: true,
+        },
+
+        date: {
             type: Date,
             required: true,
         },
 
-        endTime: {
-            type: Date,
+        start: {
+            type: String,
+            required: true,
         },
 
-        specials: {
-            type: Array,
+        end: {
+            type: String,
+            required: true,
+        },
+
+        location: {
+            type: String,
             required: true,
         },
     })
