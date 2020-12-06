@@ -2,6 +2,7 @@
 	<div class="scheduled">
 		<Timeline :items="items" @selected="selected"></Timeline>
 		<EditScheduled :populateWith="scheduled"></EditScheduled>
+		<Action :actions="actions"></Action>
 	</div>
 </template>
 
@@ -20,6 +21,13 @@ export default {
 		return {
 			items: [],
 			scheduled: {},
+			actions: [
+				{
+					message: "Sla wijzigingen op",
+					class: "btn-dark",
+					action: () => scheduledService.editMany(this.items),
+				},
+			],
 		};
 	},
 	async created() {
