@@ -1,6 +1,6 @@
 <template>
 	<div class="scheduled">
-		<Timeline :items="items" @selected="selected"></Timeline>
+		<Timeline :items="items" @selected="selected" @new="newItem"></Timeline>
 		<EditScheduled :populateWith="scheduled"></EditScheduled>
 		<Action :actions="actions"></Action>
 	</div>
@@ -32,11 +32,20 @@ export default {
 	},
 	async created() {
 		let result = await scheduledService.get();
+		console.log(result.data);
 		this.items = result.data;
 	},
 	methods: {
 		selected(item) {
 			this.scheduled = item;
+		},
+		newItem(item) {
+			this.items.push({
+				start: item.start,
+				end: item.end,
+				location: item.location,
+				date: item.date,
+			});
 		},
 	},
 };
