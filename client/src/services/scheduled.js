@@ -41,6 +41,19 @@ class ScheduledService {
         });
     }
 
+    static editMany(items) {
+        return new Promise((resolve, reject) => {
+            axios
+                .put(url, items)
+                .then(res => {
+                    resolve(res);
+                })
+                .catch(err => {
+                    reject(err.response);
+                });
+        });
+    }
+
     static delete(id) {
         return new Promise((resolve, reject) => {
             axios
