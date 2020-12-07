@@ -43,32 +43,6 @@
 			>
 				{{ i }}
 			</div>
-			<div
-				class="border-bottom"
-				v-for="i in 6"
-				:key="i"
-				v-bind:style="{
-					'grid-row': i + 1,
-					'grid-column-start': 2,
-					'grid-column-end': totalColumns(),
-				}"
-			></div>
-			<div
-				class="border-top"
-				v-bind:style="{
-					'grid-row': 2,
-					'grid-column-start': 2,
-					'grid-column-end': totalColumns(),
-				}"
-			></div>
-			<div
-				class="border-right"
-				v-bind:style="{
-					'grid-column': totalColumns() - 1,
-					'grid-row-start': 2,
-					'grid-row-end': 8,
-				}"
-			></div>
 			<small
 				class="timestamp text-muted"
 				v-for="timestamp in timestamps"
@@ -80,15 +54,19 @@
 				{{ timestamp }}
 			</small>
 			<div
-				class="timestamp text-muted border-left border-left"
-				v-for="timestamp in timestamps"
-				:key="timestamp"
+				v-for="button in buttons"
+				:key="button"
 				v-bind:style="{
-					'grid-column-start': this.getColumn(timestamp),
-					'grid-row-start': 2,
-					'grid-row-end': 8,
+					'grid-column-start': button.columnStart,
+					'grid-column-end': button.columnEnd,
+					'grid-row': button.row,
 				}"
-			></div>
+				@click="hasClicked(button)"
+				class="new-item border d-flex align-items-center justify-content-center"
+			>
+				<i class="fas fa-plus-circle" />
+			</div>
+
 			<TimelineItem
 				v-for="item in items.filter((x) => shouldBeShown(x))"
 				:key="item"
@@ -124,6 +102,7 @@ export default {
 			endTime: "14:00",
 			columnStyle: "",
 			timestamps: [],
+			buttons: [],
 			actions: [
 				{
 					message: "Sla op",
@@ -192,6 +171,31 @@ export default {
 					hour++;
 				}
 			}
+
+			for (let index = 0; index < this.timestamps.length; index++) {
+				let nextIndex = index + 1;
+
+				if (nextIndex == this.timestamps.length) {
+					nextIndex = index;
+				}
+
+				let timestamp = this.timestamps[index];
+
+				let nextTimestamp = this.timestamps[nextIndex];
+
+				let column = this.getColumn(timestamp);
+				let nextColumn = this.getColumn(nextTimestamp);
+
+				for (let row = 0; row < 6; row++) {
+					this.buttons.push({
+						start: timestamp,
+						end: nextTimestamp,
+						row: row + 2,
+						columnStart: column,
+						columnEnd: nextColumn,
+					});
+				}
+			}
 		},
 		shouldBeShown(item) {
 			return (
@@ -200,6 +204,14 @@ export default {
 				this.totalMinutes(item.start) < this.totalMinutes(this.endTime)
 			);
 		},
+		hasClicked(button) {
+			this.$emit("new", {
+				start: button.start,
+				end: button.end,
+				location: button.row - 1,
+				date: Date.now(),
+			});
+		},
 	},
 };
 </script>
@@ -207,5 +219,20 @@ export default {
 .timeline-grid {
 	display: grid;
 	grid-template-rows: auto repeat(6, 1fr);
+}
+
+.new-item {
+	cursor: pointer;
+
+	i {
+		opacity: 0;
+		transition: opacity 120ms ease;
+	}
+
+	&:hover {
+		i {
+			opacity: 0.2;
+		}
+	}
 }
 </style>
