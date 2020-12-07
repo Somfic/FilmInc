@@ -11,12 +11,15 @@
 			<div class="col-auto">
 				<div class="list-group">
 					<Scheduled
-						v-for="watchable in watchables"
-						:id="watchable._id"
-						:key="watchable"
-						:poster="watchable.poster"
-						:title="watchable.title"
-						:classification="watchable.classification"
+						v-for="item in scheduled"
+						:key="item"
+						:poster="item.watchable.poster"
+						:title="item.watchable.title"
+						:classification="item.watchable.classification"
+						:start="item.start"
+						:end="item.end"
+						:location="item.location"
+						:id="item._id"
 						@ticket-selected="addCheckout"
 					/>
 				</div>
@@ -65,6 +68,7 @@ import CheckoutItem from "../components/checkout/CheckoutItem";
 import CheckoutTotal from "../components/checkout/CheckoutTotal";
 import CheckoutOptions from "../components/checkout/CheckoutOptions";
 import watchableService from "../services/watchable";
+import scheduledService from "../services/scheduled";
 
 export default {
 	name: "TicketSelection",
@@ -76,7 +80,7 @@ export default {
 	},
 	data() {
 		return {
-			watchables: [],
+			scheduled: [],
 			checkouts: [],
 			total: 0.0,
 			count: 0,
@@ -87,8 +91,30 @@ export default {
 
 	async created() {
 		try {
-			let request = await watchableService.get();
-			this.watchables = request.data;
+			let watchables = (await watchableService.get()).data;
+			let scheduled = (await scheduledService.get()).data;
+
+			scheduled.forEach((s) => {
+				s.watchable = watchables.find((w) => w._id == s.watchableId);
+			});
+
+			this.scheduled = scheduled.sort((a, b) => {
+				let hourA = parseInt(a.start.split(":")[0]);
+				let minuteA = parseInt(a.start.split(":")[1]);
+
+				let hourB = parseInt(b.start.split(":")[0]);
+				let minuteB = parseInt(b.start.split(":")[1]);
+
+				if (hourA < hourB || (hourA == hourB && minuteA < minuteB)) {
+					return -1;
+				}
+
+				if (hourA > hourB || (hourA == hourB && minuteA > minuteB)) {
+					return 1;
+				}
+
+				return 0;
+			});
 		} catch (err) {
 			console.log(err);
 		}
@@ -97,13 +123,14 @@ export default {
 		addCheckout(item) {
 			let filtered = this.checkouts.filter(
 				(x) =>
-					x.movieId == item.movieId &&
+					x.id == item.id &&
 					x.type == item.type &&
 					x.title == item.title
 			);
 
 			if (filtered.length == 0) {
 				this.checkouts.push({
+					id: item.id,
 					title: item.title,
 					movieId: item.movieId,
 					type: item.type,
