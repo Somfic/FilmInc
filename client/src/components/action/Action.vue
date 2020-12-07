@@ -1,65 +1,64 @@
 <template>
-	<div class="list-group my-3">
-		<div class="list-group-item">
-			<div v-for="action in actions" :key="action" class="btn-group mr-3">
-				<button
-					class="btn px-3"
-					@click="execute(action)"
-					:class="action.class"
+	<div>
+		<div v-for="action in actions" :key="action" class="btn-group mr-3">
+			<button
+				class="btn px-3"
+				@click="execute(action)"
+				:class="action.class"
+			>
+				{{ action.message }}
+			</button>
+			<button
+				v-if="action.isLoading || action.isFailed || action.isSuccess"
+				class="btn d-flex align-items-center pl-0 px-3"
+				:class="action.class"
+				@click="toggleResult"
+			>
+				<Spinner
+					:is-success="action.isSuccess"
+					:is-failed="action.isFailed"
+					v-if="
+						action.isLoading || action.isFailed || action.isSuccess
+					"
+				/>
+				<span
+					v-if="codeText != ''"
+					class="ml-2 font-weight-bold"
+					v-bind:class="{
+						'success-text': action.isSuccess,
+						'failed-text': action.isFailed,
+					}"
+					>{{ code }} {{ codeText }}</span
 				>
-					{{ action.message }}
-				</button>
-				<button
-					v-if="action.isLoading"
-					class="btn d-flex align-items-center pl-0 px-3"
-					:class="action.class"
-					@click="toggleResult"
-				>
-					<Spinner
-						:is-shown="action.isLoading"
-						:is-success="action.isSuccess"
-						:is-failed="action.isFailed"
-						v-if="action.isLoading || resultCode != ''"
-					/>
-					<span
-						v-if="resultCode != ''"
-						class="ml-2 font-weight-bold"
-						v-bind:class="{
-							'success-text': action.isSuccess,
-							'failed-text': action.isFailed,
-						}"
-						>{{ resultCode }}</span
-					>
-				</button>
-			</div>
+			</button>
 		</div>
-		<div
-			v-if="result != null"
-			v-bind:class="{ 'd-none': !showResult }"
-			class="list-group-item p-0 m-0"
-		>
-			<Highlight language="json" :content="result"></Highlight>
-		</div>
+		<ActionResult
+			:result="result"
+			:code="code"
+			:codeText="codeText"
+			:shown="showResult"
+		></ActionResult>
 	</div>
 </template>
 <script>
 import Spinner from "./Spinner";
-import Highlight from "./Highlight";
+import ActionResult from "./ActionResult";
 
 export default {
 	name: "Action",
 	components: {
 		Spinner,
-		Highlight,
+		ActionResult,
 	},
 	props: {
 		actions: Array,
 	},
 	data() {
 		return {
-			showResult: true,
+			showResult: 0,
 			result: null,
-			resultCode: "",
+			code: 0,
+			codeText: "",
 		};
 	},
 	methods: {
@@ -70,26 +69,31 @@ export default {
 			item.isFailed = false;
 			item.isSuccess = false;
 			this.result = "Pending ...";
-			this.resultCode = "";
+			this.code = 0;
+			this.codeText = "";
 
 			item.action
 				.call()
 				.then((res) => {
 					item.isSuccess = true;
+					item.isLoading = false;
 					this.result = res;
-					this.resultCode = res.status + " " + res.statusText;
+					this.code = res.status;
+					this.codeText = res.statusText;
 					this.$emit("executed");
 				})
 				.catch((err) => {
 					item.isFailed = true;
+					item.isLoading = false;
 					this.result = err;
-					this.resultCode = err.status + " " + err.statusText;
+					this.code = err.status;
+					this.codeText = err.statusText;
 					this.$emit("executed");
 				});
 		},
 
 		toggleResult() {
-			this.showResult = !this.showResult;
+			this.showResult++;
 		},
 	},
 };
