@@ -10,27 +10,25 @@ export default {
 	name: "Highlight",
 	props: {
 		language: String,
-		content: Object,
+		result: Object,
 	},
 	data() {
 		return {
 			html: "",
 		};
 	},
-	watch: {
-		content: function () {
-			let code = hljs.highlight(
-				this.language,
-				JSON.stringify(this.content, null, 2),
-				true,
-				false
-			);
-
-			this.html = code.value;
-		},
-	},
 	async created() {
 		hljs.registerLanguage("json", json);
+		console.log(this.result);
+
+		let code = hljs.highlight(
+			this.language,
+			JSON.stringify(this.result, null, 2),
+			true,
+			false
+		);
+
+		this.html = code.value;
 	},
 };
 </script>
