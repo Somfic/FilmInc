@@ -1,6 +1,5 @@
 <template>
 	<div
-		v-if="isShown"
 		class="circle-loader"
 		:class="{ success: isSuccess, failed: isFailed }"
 	>
@@ -11,7 +10,6 @@
 export default {
 	name: "Spinner",
 	props: {
-		isShown: Boolean,
 		isSuccess: Boolean,
 		isFailed: Boolean,
 	},
