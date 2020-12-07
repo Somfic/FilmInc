@@ -1,62 +1,53 @@
 <template>
-  <div class="list-group-item">
-    <div class="row">
-      <div class="col-auto">
-        <div class="p-0">
-          <img
-            class="img-fluid p-0"
-            width="70"
-            :src="poster"
-            alt=""
-          >
-        </div>
-      </div>
-      <div class="col p-0">
-        <div class="align-self-center">
-          <span class="h5 m-0">{{ title }} </span>
-          <p class="m-0">
-            <Badge :content="classification" /><Badge content="3D" />
-          </p>
-          <span
-            class="font-weight-bold"
-          >{{ start_time }} - {{ end_time }}</span>
-          <div>
-            <span
-              v-for="tag in tags"
-              :key="tag"
-              class="badge"
-            >
-              {{ tag }}
-            </span>
-          </div>
-        </div>
-      </div>
-      <div class="col-auto pl-2">
-        <div class="list-group list-group-horizontal h-100">
-          <Ticket
-            name="Standaard"
-            cost="7,50"
-            @clicked="ticketSelected"
-          />
-          <Ticket
-            name="Kind"
-            cost="5,50"
-            @clicked="ticketSelected"
-          />
-          <Ticket
-            name="Standaard Luxe"
-            cost="10,00"
-            @clicked="ticketSelected"
-          />
-          <Ticket
-            name="Kind Luxe"
-            cost="8,00"
-            @clicked="ticketSelected"
-          />
-        </div>
-      </div>
-    </div>
-  </div>
+	<div class="list-group-item py-2">
+		<div class="row">
+			<div class="col-auto pl-1 py-0">
+				<div>
+					<img
+						class="img-fluid img-thumbnail"
+						width="70"
+						:src="poster"
+						alt=""
+					/>
+				</div>
+			</div>
+			<div class="col p-0 d-flex flex-column justify-content-around">
+				<div class="d-flex justify-content-between align-items-center">
+					<span class="h5 m-0">{{ title }}</span>
+					<span class="badge badge-light">{{ location }}</span>
+				</div>
+				<span class="m-0">
+					<Badge :content="classification" /><Badge />
+				</span>
+				<small>{{ start }} - {{ end }}</small>
+				<div>
+					<span v-for="tag in tags" :key="tag" class="badge">
+						{{ tag }}
+					</span>
+				</div>
+			</div>
+			<div class="col-auto pl-3 pr-1">
+				<div class="list-group list-group-horizontal h-100">
+					<Ticket
+						name="Standaard"
+						cost="7,50"
+						@clicked="ticketSelected"
+					/>
+					<Ticket name="Kind" cost="5,50" @clicked="ticketSelected" />
+					<Ticket
+						name="Standaard Luxe"
+						cost="10,00"
+						@clicked="ticketSelected"
+					/>
+					<Ticket
+						name="Kind Luxe"
+						cost="8,00"
+						@clicked="ticketSelected"
+					/>
+				</div>
+			</div>
+		</div>
+	</div>
 </template>
 
 <script>
@@ -75,8 +66,8 @@ export default {
 		title: String,
 		location: String,
 		classification: String,
-		start_time: String,
-		end_time: String,
+		start: String,
+		end: String,
 	},
 	methods: {
 		ticketSelected(selected) {
