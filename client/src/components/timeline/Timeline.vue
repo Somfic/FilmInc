@@ -13,6 +13,10 @@
 				</div>
 			</div>
 			<div class="col"></div>
+			<div class="col-auto">
+				<Action :actions="actions"></Action>
+			</div>
+			<div class="col"></div>
 			<div class="col-2">
 				<div class="form-group">
 					<label for="start">Eind tijd</label>
@@ -102,11 +106,14 @@
 </template>
 <script>
 import TimelineItem from "./TimelineItem";
+import Action from "../action/Action";
+import scheduledService from "../../services/scheduled";
 
 export default {
 	name: "Timeline",
 	components: {
 		TimelineItem,
+		Action,
 	},
 	props: {
 		items: Array,
@@ -117,6 +124,13 @@ export default {
 			endTime: "14:00",
 			columnStyle: "",
 			timestamps: [],
+			actions: [
+				{
+					message: "Sla op",
+					class: "btn-dark",
+					action: () => scheduledService.editMany(this.items),
+				},
+			],
 		};
 	},
 	async created() {
