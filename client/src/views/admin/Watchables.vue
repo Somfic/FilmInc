@@ -38,6 +38,7 @@
 					:poster="currentItem.poster"
 					:length="currentItem.length"
 					:classification="currentItem.classification"
+					class="mb-3"
 				/>
 				<Action
 					v-if="!isEditing"
