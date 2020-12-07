@@ -9,11 +9,11 @@ module.exports = async(req, res, next) => {
         let results = [];
 
         req.body.forEach(async(item) => {
-            results.push(
-                await Scheduled.findByIdAndUpdate(item._id, item, {
-                    upsert: true,
-                })
-            );
+            if (item._id) {
+                results.push(await Scheduled.findByIdAndUpdate(item._id, item));
+            } else {
+                results.push(await Scheduled.create(item));
+            }
         });
 
         res.status(200).json(results);
