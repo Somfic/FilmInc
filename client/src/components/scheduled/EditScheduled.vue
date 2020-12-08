@@ -103,7 +103,6 @@ export default {
 	watch: {
 		populateWith: function () {
 			this.scheduled = this.populateWith;
-			this.scheduled.date = this.scheduled.date.split("T")[0];
 			this.changedWatchable();
 		},
 	},
@@ -139,12 +138,16 @@ export default {
 			}
 		},
 		changedWatchable() {
-			this.watchable = this.watchables.find(
-				(x) => x._id == this.scheduled.watchableId
-			);
-			this.scheduled.watchableId = this.watchable._id;
-			this.scheduled.watchableTitle = this.watchable.title;
-			this.calcEndTime();
+			try {
+				this.watchable = this.watchables.find(
+					(x) => x._id == this.scheduled.watchableId
+				);
+				this.scheduled.watchableId = this.watchable._id;
+				this.scheduled.watchableTitle = this.watchable.title;
+				this.calcEndTime();
+			} catch (err) {
+				console.log(err);
+			}
 		},
 		setLocation(i) {
 			this.scheduled.location = i;

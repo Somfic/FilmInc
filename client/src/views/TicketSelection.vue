@@ -1,13 +1,7 @@
 <template>
 	<div class="ticket-selection">
-		<div class="alert alert-info" role="alert">
-			<strong>Project informatie?</strong><br />
-			<span
-				>Klik <a href="/project">hier</a> om naar projectinformatie te
-				gaan</span
-			>
-		</div>
-		<div class="row gap-1">
+		<Navbar></Navbar>
+		<div class="row">
 			<div class="col-auto">
 				<div class="list-group">
 					<Scheduled
@@ -58,6 +52,7 @@
 				</div>
 			</div>
 		</div>
+		<Footer></Footer>
 	</div>
 </template>
 
@@ -67,6 +62,8 @@ import Scheduled from "../components/scheduled/Scheduled";
 import CheckoutItem from "../components/checkout/CheckoutItem";
 import CheckoutTotal from "../components/checkout/CheckoutTotal";
 import CheckoutOptions from "../components/checkout/CheckoutOptions";
+import Footer from "../components/footer/Footer";
+import Navbar from "../components/navbar/Navbar";
 import watchableService from "../services/watchable";
 import scheduledService from "../services/scheduled";
 
@@ -77,6 +74,8 @@ export default {
 		CheckoutItem,
 		CheckoutTotal,
 		CheckoutOptions,
+		Footer,
+		Navbar,
 	},
 	data() {
 		return {

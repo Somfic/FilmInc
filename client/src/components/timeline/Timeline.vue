@@ -14,7 +14,21 @@
 			</div>
 			<div class="col"></div>
 			<div class="col-auto">
-				<Action :actions="actions"></Action>
+				<div class="form-group">
+					<label for="start">Datum</label>
+					<input
+						v-model="date"
+						class="form-control"
+						type="date"
+						@change="changedDate"
+					/>
+				</div>
+			</div>
+			<div class="col-auto">
+				<div class="form-group">
+					<label>Acties</label>
+					<Action :actions="actions"></Action>
+				</div>
 			</div>
 			<div class="col"></div>
 			<div class="col-2">
@@ -100,12 +114,13 @@ export default {
 		return {
 			startTime: "10:00",
 			endTime: "14:00",
+			date: new Date().toISOString().substring(0, 10),
 			columnStyle: "",
 			timestamps: [],
 			buttons: [],
 			actions: [
 				{
-					message: "Sla op",
+					message: "Sla wijzigingen op",
 					class: "btn-dark",
 					action: () => scheduledService.editMany(this.items),
 				},
@@ -209,8 +224,11 @@ export default {
 				start: button.start,
 				end: button.end,
 				location: button.row - 1,
-				date: Date.now(),
+				date: this.date,
 			});
+		},
+		changedDate() {
+			this.$emit("changeddate", this.date);
 		},
 	},
 };

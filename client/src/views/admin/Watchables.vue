@@ -1,5 +1,6 @@
 <template>
 	<div class="watchable">
+		<Navbar></Navbar>
 		<div class="row">
 			<div class="col-3">
 				<div v-if="!isEditing" class="list-group">
@@ -60,6 +61,7 @@
 				></Action>
 			</div>
 		</div>
+		<Footer></Footer>
 	</div>
 </template>
 
@@ -67,11 +69,19 @@
 import Watchable from "../../components/watchable/Watchable";
 import EditWatchable from "../../components/watchable/EditWatchable";
 import Action from "../../components/action/Action";
+import Footer from "../../components/footer/Footer";
+import Navbar from "../../components/navbar/Navbar";
 import watchableService from "../../services/watchable";
 
 export default {
 	name: "Watchables",
-	components: { Watchable, Action, EditWatchable },
+	components: {
+		Watchable,
+		Action,
+		EditWatchable,
+		Footer,
+		Navbar,
+	},
 	data() {
 		return {
 			reset: Date.now(),

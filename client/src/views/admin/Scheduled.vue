@@ -1,14 +1,18 @@
 <template>
 	<div class="scheduled">
+		<Navbar></Navbar>
 		<Timeline :items="items" @selected="selected" @new="newItem"></Timeline>
 		<EditScheduled :populateWith="scheduled"></EditScheduled>
 		<Action :actions="actions"></Action>
+		<Footer></Footer>
 	</div>
 </template>
 
 <script>
 import EditScheduled from "../../components/scheduled/EditScheduled.vue";
 import Timeline from "../../components/timeline/Timeline";
+import Footer from "../../components/footer/Footer";
+import Navbar from "../../components/navbar/Navbar";
 import scheduledService from "../../services/scheduled";
 
 export default {
@@ -16,6 +20,8 @@ export default {
 	components: {
 		Timeline,
 		EditScheduled,
+		Navbar,
+		Footer,
 	},
 	data() {
 		return {
@@ -37,15 +43,12 @@ export default {
 	},
 	methods: {
 		selected(item) {
+			console.log("selected", item);
 			this.scheduled = item;
 		},
 		newItem(item) {
-			this.items.push({
-				start: item.start,
-				end: item.end,
-				location: item.location,
-				date: item.date,
-			});
+			console.log(item);
+			this.items.push(item);
 		},
 	},
 };

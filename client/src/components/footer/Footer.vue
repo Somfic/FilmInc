@@ -1,8 +1,8 @@
 <template>
-	<footer class="border-top">
+	<div class="ftr rounded border my-3 bg-light p-3">
 		<span class="text-muted">FilmInc 2020</span>
 		<span class="text-muted">{{ name() }}</span>
-	</footer>
+	</div>
 </template>
 <script>
 import cacheService from "../../services/cache";
@@ -23,15 +23,10 @@ export default {
 };
 </script>
 <style scoped>
-footer {
-	width: 100%;
+.ftr {
 	display: flex;
-	height: 50px;
-	margin-top: 50px;
 	align-items: center;
 	justify-content: space-around;
-	padding: 1rem;
-	z-index: -20;
-	background-color: rgb(235, 235, 235);
+	width: 100%;
 }
 </style>

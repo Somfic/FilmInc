@@ -6,7 +6,6 @@
 					<input
 						v-for="i in 4"
 						:key="i"
-						disabled
 						class="form-control"
 						type="text"
 						maxlength="1"
@@ -17,7 +16,6 @@
 					<input
 						v-for="i in 4"
 						:key="i"
-						disabled
 						class="form-control"
 						type="password"
 						maxlength="1"
