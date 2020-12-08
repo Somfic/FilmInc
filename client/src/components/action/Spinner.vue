@@ -1,7 +1,7 @@
 <template>
 	<div
 		class="circle-loader"
-		:class="{ success: isSuccess, failed: isFailed }"
+		:class="{ inactive: !isLoading, success: isSuccess, failed: isFailed }"
 	>
 		<div class="status draw" />
 	</div>
@@ -10,6 +10,7 @@
 export default {
 	name: "Spinner",
 	props: {
+		isLoading: Boolean,
 		isSuccess: Boolean,
 		isFailed: Boolean,
 	},
@@ -21,8 +22,8 @@ export default {
 $brand-success: #71b671;
 $brand-failure: #e96b6b;
 $brand-loader: rgb(105, 138, 187);
-$loader-size: 1rem;
-$symbol-thickness: 2px;
+$loader-size: 1.5rem;
+$symbol-thickness: 4px;
 $check-color: $brand-success;
 $cross-color: $brand-failure;
 
@@ -37,11 +38,17 @@ $cross-color: $brand-failure;
 	display: inline-block;
 	margin: 0;
 	padding: 0;
+	opacity: 1;
+	transition: opacity 500ms ease-out;
 	&,
 	&:after {
 		border-radius: 50%;
 		width: $loader-size;
 		height: $loader-size;
+	}
+
+	&.inactive {
+		opacity: 0;
 	}
 }
 

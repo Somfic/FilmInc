@@ -7,6 +7,12 @@ const routes = [{
             import ("../views/TicketSelection.vue")
     },
     {
+        path: "/auth",
+        name: "Auth",
+        component: () =>
+            import ("../views/Auth.vue")
+    },
+    {
         path: "/project",
         name: "Projectbeschrijving",
         component: () =>

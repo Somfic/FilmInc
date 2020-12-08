@@ -1,15 +1,25 @@
 const axios = require("axios").default;
 const url = require("../config/config").apiServer + "/watchable";
 
+import router from "../router/index";
+
+import cacheService from "./cache";
+const config = {
+    headers: { Authorization: `Bearer ${cacheService.read("token")}` }
+};
+
 class WatchableService {
     static get() {
         return new Promise((resolve, reject) => {
             axios
-                .get(url)
+                .get(url, config)
                 .then(res => {
                     resolve(res);
                 })
                 .catch(err => {
+                    if (err.response.status == 401) {
+                        router.push("/auth");
+                    }
                     reject(err.response);
                 });
         });
@@ -18,11 +28,14 @@ class WatchableService {
     static create(item) {
         return new Promise((resolve, reject) => {
             axios
-                .post(url, item)
+                .post(url, item, config)
                 .then(res => {
                     resolve(res);
                 })
                 .catch(err => {
+                    if (err.response.status == 401) {
+                        router.push("/auth");
+                    }
                     reject(err.response);
                 });
         });
@@ -31,11 +44,14 @@ class WatchableService {
     static edit(id, item) {
         return new Promise((resolve, reject) => {
             axios
-                .put(url + "/" + id, item)
+                .put(url + "/" + id, item, config)
                 .then(res => {
                     resolve(res);
                 })
                 .catch(err => {
+                    if (err.response.status == 401) {
+                        router.push("/auth");
+                    }
                     reject(err.response);
                 });
         });
@@ -44,11 +60,14 @@ class WatchableService {
     static delete(id) {
         return new Promise((resolve, reject) => {
             axios
-                .delete(url + "/" + id)
+                .delete(url + "/" + id, config)
                 .then(res => {
                     resolve(res);
                 })
                 .catch(err => {
+                    if (err.response.status == 401) {
+                        router.push("/auth");
+                    }
                     reject(err.response);
                 });
         });
@@ -57,11 +76,14 @@ class WatchableService {
     static dupe(id) {
         return new Promise((resolve, reject) => {
             axios
-                .post(url + "/" + id)
+                .post(url + "/" + id, config)
                 .then(res => {
                     resolve(res);
                 })
                 .catch(err => {
+                    if (err.response.status == 401) {
+                        router.push("/auth");
+                    }
                     reject(err.response);
                 });
         });

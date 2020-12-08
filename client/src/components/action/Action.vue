@@ -17,7 +17,7 @@
 				<Spinner
 					:is-success="action.isSuccess"
 					:is-failed="action.isFailed"
-					v-if="
+					:isLoading="
 						action.isLoading || action.isFailed || action.isSuccess
 					"
 				/>

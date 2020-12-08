@@ -6,5 +6,5 @@ module.exports = {
     logLevel: process.env.LOGLEVEL || "debug",
     port: process.env.PORT || 3000,
     saltRounds: 10,
-    jwtSecret: process.env.JwtSecret,
+    jwtSecret: process.env.JWT_TOKEN,
 };
