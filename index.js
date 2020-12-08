@@ -19,6 +19,7 @@ app.use(require("./src/logging/loggerHandler"));
 // Routes
 app.use("/api/watchable", require("./src/routes/watchable"));
 app.use("/api/scheduled", require("./src/routes/scheduled"));
+app.use("/api/auth", require("./src/routes/authentication"));
 
 // Error handling
 app.use(require("./src/error/errorHandler.js"));
