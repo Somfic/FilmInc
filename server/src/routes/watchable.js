@@ -1,14 +1,43 @@
 const express = require("express");
-const validationHandler = require("../validation/validationHandler");
+const validation = require("../validation/validation");
+const authentication = require("../validation/authentication");
 
 const router = express.Router();
 
-router.get("/", require("../controllers/watchable/list.controller"));
-router.get("/:id", require("../controllers/watchable/get.controller"));
-router.post("/", require("../controllers/watchable/create.controller"));
-router.post("/:id", require("../controllers/watchable/dupe.controller"));
-router.put("/:id", require("../controllers/watchable/update.controller"));
-router.put("/", require("../controllers/watchable/updateMany.controller"));
-router.delete("/:id", require("../controllers/watchable/delete.controller"));
+router.get(
+    "/",
+    authentication,
+    require("../controllers/watchable/list.controller")
+);
+router.get(
+    "/:id",
+    authentication,
+    require("../controllers/watchable/get.controller")
+);
+router.post(
+    "/",
+    authentication,
+    require("../controllers/watchable/create.controller")
+);
+router.post(
+    "/:id",
+    authentication,
+    require("../controllers/watchable/dupe.controller")
+);
+router.put(
+    "/:id",
+    authentication,
+    require("../controllers/watchable/update.controller")
+);
+router.put(
+    "/",
+    authentication,
+    require("../controllers/watchable/updateMany.controller")
+);
+router.delete(
+    "/:id",
+    authentication,
+    require("../controllers/watchable/delete.controller")
+);
 
 module.exports = router;
