@@ -1,9 +1,12 @@
 const logger = require("../logging/logger");
 const jwt = require("jsonwebtoken");
 const ServerError = require("../error/ServerError");
+const UserAccount = require("../models/UserAccount");
 const config = require("../config/config");
 
-module.exports = (req, res, next) => {
+module.exports = async(req, res, next) => {
+    logger.trace("Middleware: authentication");
+
     try {
         let header = req.headers.authorization;
 
@@ -13,14 +16,19 @@ module.exports = (req, res, next) => {
 
         let token = header.substring(7, header.length);
 
-        jwt.verify(token, config.jwtSecret, (err, payload) => {
+        jwt.verify(token, config.jwtSecret, async(err, payload) => {
             if (err) {
                 next(ServerError.unauthorized(err));
             }
 
             if (payload) {
                 let uid = payload.uid;
-                let name = payload.name;
+                let userAccount = await UserAccount.findOne({ uid: uid });
+                if (!userAccount) {
+                    next(ServerError.unauthorized("Account has been deleted"));
+                }
+
+                let name = userAccount.name;
 
                 logger.trace(`Authorized user: ${name} (${uid})`);
 
