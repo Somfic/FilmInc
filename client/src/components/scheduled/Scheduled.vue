@@ -14,17 +14,12 @@
 			<div class="col p-0 d-flex flex-column justify-content-around">
 				<div class="d-flex justify-content-between align-items-center">
 					<span class="h5 m-0">{{ title }}</span>
-					<span class="badge badge-light">{{ location }}</span>
 				</div>
 				<span class="m-0">
 					<Badge :content="classification" /><Badge />
+					<span class="badge badge-light">Zaal {{ location }}</span>
 				</span>
 				<small>{{ start }} - {{ end }}</small>
-				<div>
-					<span v-for="tag in tags" :key="tag" class="badge">
-						{{ tag }}
-					</span>
-				</div>
 			</div>
 			<div class="col-auto pl-3 pr-1">
 				<div class="list-group list-group-horizontal h-100">
@@ -68,6 +63,7 @@ export default {
 		classification: String,
 		start: String,
 		end: String,
+		date: String,
 	},
 	methods: {
 		ticketSelected(selected) {

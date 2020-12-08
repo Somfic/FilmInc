@@ -5,7 +5,9 @@
 			<div class="col-auto">
 				<div class="list-group">
 					<Scheduled
-						v-for="item in scheduled"
+						v-for="item in scheduled.filter(
+							(x) => x.date == this.date
+						)"
 						:key="item"
 						:poster="item.watchable.poster"
 						:title="item.watchable.title"
@@ -14,11 +16,20 @@
 						:end="item.end"
 						:location="item.location"
 						:id="item._id"
+						:date="item.date"
 						@ticket-selected="addCheckout"
 					/>
 				</div>
 			</div>
 			<div class="col">
+				<div class="form-group">
+					<input
+						v-model="date"
+						class="form-control"
+						type="date"
+						@change="changedDate"
+					/>
+				</div>
 				<div
 					class="list-group sticky-top pt-3"
 					style="margin-top: -1rem"
@@ -32,6 +43,7 @@
 						:type="item.type"
 						:cost="item.cost"
 						:amount="item.amount"
+						:date="item.date"
 						:class="{ 'bg-light': index == currentIndex }"
 						:is-editing="index == currentIndex"
 						@click="setActive(item, index)"
@@ -85,6 +97,7 @@ export default {
 			count: 0,
 			currentIndex: -1,
 			currentItem: {},
+			date: new Date().toISOString().substring(0, 10),
 		};
 	},
 
@@ -114,6 +127,9 @@ export default {
 
 				return 0;
 			});
+
+			console.log(this.scheduled);
+			console.log(this.date);
 		} catch (err) {
 			console.log(err);
 		}
@@ -136,6 +152,7 @@ export default {
 					cost: item.cost,
 					costOne: item.cost,
 					amount: 1,
+					date: item.date,
 				});
 			} else {
 				filtered[0].amount++;

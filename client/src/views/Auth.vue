@@ -1,6 +1,6 @@
 <template>
 	<div class="auth h-100 w-100">
-		<div class="card">
+		<div class="card shadow">
 			<div class="d-flex inputs">
 				<div class="input-group">
 					<input
@@ -26,7 +26,7 @@
 
 			<div class="keypad">
 				<button
-					class="btn rounded btn-light"
+					class="border btn rounded btn-light"
 					v-for="i in 9"
 					:key="i"
 					@click="addInput(i)"
@@ -34,17 +34,23 @@
 					{{ i }}
 				</button>
 
-				<button class="btn rounded btn-light" disabled>
+				<button class="border btn rounded btn-light" disabled>
 					<Spinner
 						:isLoading="isLoading"
 						:isSuccess="isSuccess"
 						:isFailed="isFailed"
 					></Spinner>
 				</button>
-				<button class="btn rounded btn-light" @click="addInput(0)">
+				<button
+					class="border btn rounded btn-light"
+					@click="addInput(0)"
+				>
 					0
 				</button>
-				<button class="btn rounded btn-light" @click="backspace()">
+				<button
+					class="border btn rounded btn-light"
+					@click="backspace()"
+				>
 					<i class="fas fa-backspace"></i>
 				</button>
 			</div>
@@ -123,12 +129,12 @@ export default {
 }
 
 .card {
-	width: 700px;
 	margin: auto;
 	justify-content: center;
 	align-items: center;
-	padding: 10% 0px;
+	padding: 2rem;
 	border-radius: 2rem;
+	border: none;
 }
 
 .input-group {

@@ -1,10 +1,7 @@
 <template>
-  <span
-    class="badge"
-    :class="getClass()"
-  >
-    {{ content }}
-  </span>
+	<span class="badge mr-1" :class="getClass()">
+		{{ content }}
+	</span>
 </template>
 
 

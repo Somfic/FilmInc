@@ -122,7 +122,10 @@ export default {
 				{
 					message: "Sla wijzigingen op",
 					class: "btn-dark",
-					action: () => scheduledService.editMany(this.items),
+					action: () =>
+						scheduledService
+							.editMany(this.items)
+							.then(this.$emit("updated")),
 				},
 			],
 		};
@@ -216,7 +219,9 @@ export default {
 			return (
 				this.totalMinutes(item.end) >
 					this.totalMinutes(this.startTime) &&
-				this.totalMinutes(item.start) < this.totalMinutes(this.endTime)
+				this.totalMinutes(item.start) <
+					this.totalMinutes(this.endTime) &&
+				item.date == this.date
 			);
 		},
 		hasClicked(button) {
@@ -236,7 +241,7 @@ export default {
 <style lang="scss" scoped>
 .timeline-grid {
 	display: grid;
-	grid-template-rows: auto repeat(6, 1fr);
+	grid-template-rows: auto repeat(6, 50px);
 }
 
 .new-item {

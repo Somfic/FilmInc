@@ -15,7 +15,7 @@ module.exports = mongoose.model(
         },
 
         date: {
-            type: Date,
+            type: String,
             required: true,
         },
 

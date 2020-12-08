@@ -133,6 +133,12 @@ export default {
 					this.addLeading(end.getHours()) +
 					":" +
 					this.addLeading(end.getMinutes());
+
+				if (!this.scheduled.hasSynced) {
+					this.scheduled.hasSynced = true;
+				} else {
+					this.scheduled.isUpdated = true;
+				}
 			} catch {
 				this.scheduled.end = NaN;
 			}
@@ -151,6 +157,7 @@ export default {
 		},
 		setLocation(i) {
 			this.scheduled.location = i;
+			this.scheduled.isUpdated = true;
 		},
 		addLeading(number) {
 			if (parseInt(number) < 10) {

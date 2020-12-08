@@ -1,8 +1,18 @@
 <template>
 	<div class="scheduled">
 		<Navbar></Navbar>
-		<Timeline :items="items" @selected="selected" @new="newItem"></Timeline>
-		<EditScheduled :populateWith="scheduled"></EditScheduled>
+		<Timeline
+			:items="items"
+			@selected="selected"
+			@new="newItem"
+			@updated="update"
+			class="mb-3"
+		></Timeline>
+		<EditScheduled
+			v-if="scheduled.location != 0"
+			:populateWith="scheduled"
+			@updated="update"
+		></EditScheduled>
 		<Action :actions="actions"></Action>
 		<Footer></Footer>
 	</div>
@@ -37,9 +47,7 @@ export default {
 		};
 	},
 	async created() {
-		let result = await scheduledService.get();
-		console.log(result.data);
-		this.items = result.data;
+		this.update();
 	},
 	methods: {
 		selected(item) {
@@ -47,8 +55,13 @@ export default {
 			this.scheduled = item;
 		},
 		newItem(item) {
-			console.log(item);
+			item.isUpdated = true;
 			this.items.push(item);
+		},
+		update() {
+			scheduledService.get().then((res) => {
+				this.items = res.data;
+			});
 		},
 	},
 };

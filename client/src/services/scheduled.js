@@ -92,7 +92,7 @@ class ScheduledService {
     static dupe(id) {
         return new Promise((resolve, reject) => {
             axios
-                .post(url + "/" + id, config)
+                .post(url + "/" + id, null, config)
                 .then(res => {
                     resolve(res);
                 })

@@ -33,32 +33,34 @@
 				/>
 			</div>
 			<div v-if="currentItem" class="col-9">
-				<Watchable
-					:title="currentItem.title"
-					:description="currentItem.description"
-					:poster="currentItem.poster"
-					:length="currentItem.length"
-					:classification="currentItem.classification"
-					class="mb-3"
-				/>
-				<Action
-					v-if="!isEditing"
-					:actions="normalActions"
-					:reset="reset"
-					@executed="executed"
-				></Action>
-				<Action
-					v-if="isEditing && !isNew"
-					:actions="editingActions"
-					:reset="reset"
-					@executed="executed"
-				></Action>
-				<Action
-					v-if="isEditing && isNew"
-					:actions="newActions"
-					:reset="reset"
-					@executed="executedNew"
-				></Action>
+				<div class="sticky-top pt-3">
+					<Watchable
+						:title="currentItem.title"
+						:description="currentItem.description"
+						:poster="currentItem.poster"
+						:length="currentItem.length"
+						:classification="currentItem.classification"
+						class="mb-3"
+					/>
+					<Action
+						v-if="!isEditing"
+						:actions="normalActions"
+						:reset="reset"
+						@executed="executed"
+					></Action>
+					<Action
+						v-if="isEditing && !isNew"
+						:actions="editingActions"
+						:reset="reset"
+						@executed="executed"
+					></Action>
+					<Action
+						v-if="isEditing && isNew"
+						:actions="newActions"
+						:reset="reset"
+						@executed="executedNew"
+					></Action>
+				</div>
 			</div>
 		</div>
 		<Footer></Footer>
