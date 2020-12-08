@@ -1,19 +1,8 @@
 <template>
-	<div>
-		<div class="container">
-			<router-view />
-		</div>
-		<Footer></Footer>
+	<div class="container">
+		<router-view />
 	</div>
 </template>
-<script>
-import Footer from "./components/footer/Footer";
-
-export default {
-	name: "App",
-	components: { Footer },
-};
-</script>
 <style>
 footer {
 	position: fixed;
@@ -22,7 +11,7 @@ footer {
 }
 
 .container {
-	padding: 1rem 0px;
+	padding-top: 1rem;
 }
 
 .list-group-item-action {
