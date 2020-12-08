@@ -27,7 +27,7 @@
 						data-dismiss="modal"
 						@click="isShowing = false"
 					>
-						Close
+						Sluit
 					</button>
 				</div>
 			</div>
