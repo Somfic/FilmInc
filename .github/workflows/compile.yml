@@ -1,12 +1,12 @@
-name: Compile production
+name: Compile
 
 on:
   push:
     branches: [ main ]
 
 jobs:
-  deploy:
-    name: Compile application
+  compile:
+    name: Production
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code

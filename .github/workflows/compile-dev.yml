@@ -1,12 +1,12 @@
-name: Compile development
+name: Compile
 
 on:
   push:
     branches: [ dev ]
 
 jobs:
-  deploy:
-    name: Compile application
+  compile:
+    name: Development
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code

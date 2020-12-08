@@ -1,25 +1,22 @@
 <template>
-  <div class="checkout-total">
-    <p>Totaal</p>
-    <p>€ {{cost}}</p>
+  <div class="list-group-item disabled border-top-1">
+    <div class="row font-weight-bold">
+      <div class="col">
+        <span>{{ count }} tickets</span>
+      </div>
+      <div class="col-auto">
+        <span>€ {{ cost }}</span>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: "CheckoutTotal",
-  props: {
-    cost: String,
-  }
+	name: "CheckoutTotal",
+	props: {
+		cost: String,
+		count: Number,
+	},
 };
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-.checkout-total {
-  padding: 1rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-</style>

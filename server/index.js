@@ -3,17 +3,23 @@ const app = express();
 
 const config = require("./src/config/config.js");
 const logger = require("./src/logging/logger");
-const database = require("./src/config/database");
+const database = require("./src/database/database");
 const cors = require("cors");
 const path = require("path");
 
-// Setup middleware
+// Setup body parser (json) middleware
 app.use(require("body-parser").json());
+
+// Setup CORS middleware
 app.use(cors());
+
+// Setup logging middleware
 app.use(require("./src/logging/loggerHandler"));
 
 // Routes
-app.use("/api/showings", require("./src/routes/showings"));
+app.use("/api/watchable", require("./src/routes/watchable"));
+app.use("/api/scheduled", require("./src/routes/scheduled"));
+app.use("/api/auth", require("./src/routes/authentication"));
 
 // Error handling
 app.use(require("./src/error/errorHandler.js"));
@@ -22,16 +28,18 @@ app.use(require("./src/error/errorHandler.js"));
 app.use(express.static(path.resolve(__dirname, "public/")));
 
 // Send to client in case of invalid url
-app.get("*", (req, res) => {
-	logger.trace("Invalid, sending to index");
-	res.sendFile(path.resolve(__dirname, "public/index.html"));
+app.get(/.*/, (req, res) => {
+    res.sendFile(path.resolve(__dirname, "public/index.html"));
 });
+
+// Setup Vue Router History fallback
+app.use(require("connect-history-api-fallback"));
 
 // Start database
 database.connect();
 
 // Start server
 app.listen(config.port, () => {
-	logger.info(`Server initiated on port ${config.port}`);
-	logger.debug(`Mode: ${config.mode}`);
+    logger.info(`Server initiated on port ${config.port}`);
+    logger.debug(`Mode: ${config.mode}`);
 });
