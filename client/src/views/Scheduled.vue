@@ -20,12 +20,12 @@
 </template>
 
 <script>
-import EditScheduled from "../../components/scheduled/EditScheduled.vue";
-import Timeline from "../../components/timeline/Timeline";
-import Footer from "../../components/footer/Footer";
-import Navbar from "../../components/navbar/Navbar";
-import scheduledService from "../../services/scheduled";
-import tokenService from "../../services/token";
+import EditScheduled from "../components/scheduled/EditScheduled.vue";
+import Timeline from "../components/timeline/Timeline";
+import Footer from "../components/footer/Footer";
+import Navbar from "../components/navbar/Navbar";
+import scheduledService from "../services/scheduled";
+import tokenService from "../services/token";
 
 export default {
   name: "Scheduled",

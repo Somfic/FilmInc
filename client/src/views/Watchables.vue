@@ -69,13 +69,13 @@
 </template>
 
 <script>
-import Watchable from "../../components/watchable/Watchable";
-import EditWatchable from "../../components/watchable/EditWatchable";
-import Action from "../../components/action/Action";
-import Footer from "../../components/footer/Footer";
-import Navbar from "../../components/navbar/Navbar";
-import watchableService from "../../services/watchable";
-import tokenService from "../../services/token";
+import Watchable from "../components/watchable/Watchable";
+import EditWatchable from "../components/watchable/EditWatchable";
+import Action from "../components/action/Action";
+import Footer from "../components/footer/Footer";
+import Navbar from "../components/navbar/Navbar";
+import watchableService from "../services/watchable";
+import tokenService from "../services/token";
 
 export default {
   name: "Watchables",
