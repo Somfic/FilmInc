@@ -17,10 +17,10 @@ app.use(cors());
 app.use(require("./src/logging/loggerHandler"));
 
 // Routes
-app.use("/api/watchable", require("./src/routes/watchable"));
-app.use("/api/scheduled", require("./src/routes/scheduled"));
-app.use("/api/auth", require("./src/routes/authentication"));
-app.use("/api/user", require("./src/routes/useraccount"));
+app.use("/api/watchable", require("./src/routes/watchable.routes"));
+app.use("/api/scheduled", require("./src/routes/scheduled.routes"));
+app.use("/api/auth", require("./src/routes/authentication.routes"));
+app.use("/api/user", require("./src/routes/useraccount.routes"));
 
 // Error handling
 app.use(require("./src/error/errorHandler.js"));
