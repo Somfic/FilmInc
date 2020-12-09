@@ -13,6 +13,12 @@ const routes = [{
             import ("../views/Auth.vue"),
     },
     {
+        path: "/users",
+        name: "Gebruikers",
+        component: () =>
+            import ("../views/Users.vue"),
+    },
+    {
         path: "/seats",
         name: "Stoel keuze",
         component: () =>
