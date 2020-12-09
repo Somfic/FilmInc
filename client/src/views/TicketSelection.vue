@@ -7,14 +7,7 @@
           <Scheduled
             v-for="item in scheduled.filter((x) => x.date == this.date)"
             :key="item"
-            :poster="item.watchable.poster"
-            :title="item.watchable.title"
-            :classification="item.watchable.classification"
-            :start="item.start"
-            :end="item.end"
-            :location="item.location"
-            :id="item._id"
-            :date="item.date"
+            :item="item"
             @ticket-selected="addCheckout"
           />
         </div>
@@ -63,7 +56,6 @@
     <Footer></Footer>
   </div>
 </template>
-
 
 <script>
 import Scheduled from "../components/scheduled/Scheduled";
