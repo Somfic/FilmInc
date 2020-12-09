@@ -12,8 +12,8 @@ module.exports = async(req, res, next) => {
         delete original._id;
         let result = await Scheduled.create(original);
 
-        res.status(200).json(result);
+        return res.status(200).json(result);
     } catch (err) {
-        next(ServerError.badRequest(err));
+        return next(ServerError.badRequest(err));
     }
 };

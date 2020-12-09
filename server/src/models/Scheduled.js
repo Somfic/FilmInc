@@ -33,5 +33,23 @@ module.exports = mongoose.model(
             type: String,
             required: true,
         },
+
+        rows: {
+            type: Number,
+            required: true,
+            default: 10,
+        },
+
+        columns: {
+            type: Number,
+            required: true,
+            default: 35,
+        },
+
+        takenTickets: {
+            type: Array,
+            required: true,
+            default: [],
+        },
     })
 );

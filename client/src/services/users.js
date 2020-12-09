@@ -1,5 +1,5 @@
 const axios = require("axios").default;
-const url = require("../config/config").apiServer + "/scheduled";
+const url = require("../config/config").apiServer + "/user";
 
 import cacheService from "./cache";
 import authCheck from "./middleware/auth";
@@ -8,25 +8,11 @@ const config = {
     headers: { Authorization: `Bearer ${cacheService.read("token")}` },
 };
 
-class ScheduledService {
+class UserService {
     static get() {
         return new Promise((resolve, reject) => {
             axios
                 .get(url, config)
-                .then((res) => {
-                    resolve(res);
-                })
-                .catch((err) => {
-                    authCheck(err);
-                    reject(err.response);
-                });
-        });
-    }
-
-    static getOne(id) {
-        return new Promise((resolve, reject) => {
-            axios
-                .get(url + "/" + id, config)
                 .then((res) => {
                     resolve(res);
                 })
@@ -65,20 +51,6 @@ class ScheduledService {
         });
     }
 
-    static editMany(items) {
-        return new Promise((resolve, reject) => {
-            axios
-                .put(url, items, config)
-                .then((res) => {
-                    resolve(res);
-                })
-                .catch((err) => {
-                    authCheck(err);
-                    reject(err.response);
-                });
-        });
-    }
-
     static delete(id) {
         return new Promise((resolve, reject) => {
             axios
@@ -92,20 +64,6 @@ class ScheduledService {
                 });
         });
     }
-
-    static dupe(id) {
-        return new Promise((resolve, reject) => {
-            axios
-                .post(url + "/" + id, null, config)
-                .then((res) => {
-                    resolve(res);
-                })
-                .catch((err) => {
-                    authCheck(err);
-                    reject(err.response);
-                });
-        });
-    }
 }
 
-export default ScheduledService;
+export default UserService;
