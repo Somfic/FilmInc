@@ -15,7 +15,12 @@ class CacheService {
     static readObject(name) {
         let json = this.read(name);
         if (json) {
-            return JSON.parse(json);
+            try {
+                return JSON.parse(json);
+            } catch (err) {
+                console.log("Could not decode JSON", err);
+                return null;
+            }
         }
         return null;
     }
