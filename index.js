@@ -24,16 +24,22 @@ app.use("/api/auth", require("./src/routes/authentication"));
 // Error handling
 app.use(require("./src/error/errorHandler.js"));
 
-// Serve static client
-app.use(express.static(path.resolve(__dirname, "public/")));
+if (config.mode == "production") {
+    logger.debug("Production mode detected, hosting frontend too");
 
-// Send to client in case of invalid url
-app.get(/.*/, (req, res) => {
-    res.sendFile(path.resolve(__dirname, "public/index.html"));
-});
+    // Serve static client
+    app.use(express.static(path.resolve(__dirname, "public/")));
 
-// Setup Vue Router History fallback
-app.use(require("connect-history-api-fallback"));
+    // Send to client in case of invalid url
+    app.get(/.*/, (req, res) => {
+        res.sendFile(path.resolve(__dirname, "public/index.html"));
+    });
+
+    // Setup Vue Router History fallback
+    app.use(require("connect-history-api-fallback"));
+} else {
+    logger.debug(`Mode: ${config.mode}, skipping frontend hosting`);
+}
 
 // Start database
 database.connect();
@@ -41,5 +47,4 @@ database.connect();
 // Start server
 app.listen(config.port, () => {
     logger.info(`Server initiated on port ${config.port}`);
-    logger.debug(`Mode: ${config.mode}`);
 });
