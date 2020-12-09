@@ -51,7 +51,7 @@
       kan een administrator of een normale gebruiker zijn. Administratoren
       kunnen het filmschema en aanbod aanpassen.
     </p>
-    <img src="/assets/dia.png" alt="" />
+    <img class="img-fluid" src="/assets/dia.png" alt="" />
   </div>
 </template>
 <script>
