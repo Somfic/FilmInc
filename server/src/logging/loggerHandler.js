@@ -21,12 +21,15 @@ module.exports = (req, res, next) => {
 
     let url = `${req.protocol}://${req.get("host")}${req.originalUrl}`;
 
-    // Don't log html support files
-    if (!url.endsWith(".ico") &&
+    // Filter HTML support files
+    if (
+        url.endsWith(".ico") &&
         !url.endsWith(".js") &&
         !url.endsWith(".css") &&
         !url.endsWith(".map")
     ) {
+        logger.trace(`${req.method} request: ${url}`, requestInfo);
+    } else {
         logger.debug(`${req.method} request: ${url}`, requestInfo);
     }
 
