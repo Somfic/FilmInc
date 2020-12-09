@@ -73,7 +73,7 @@ export default {
   },
   methods: {
     logout() {
-      cacheService.write("token", null);
+      cacheService.write("token", "");
       router.push("/auth");
     },
   },
