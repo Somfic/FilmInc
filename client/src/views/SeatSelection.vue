@@ -1,5 +1,6 @@
 <template>
   <div class="seat-selection">
+    <Navbar></Navbar>
     <div class="row">
       <div class="col-3">
         <div class="list-group">
@@ -44,6 +45,7 @@
         ></SeatPlan>
       </div>
     </div>
+    <Footer></Footer>
   </div>
 </template>
 <script>
@@ -51,6 +53,8 @@ import SeatPlan from "../components/seats/SeatPlan";
 import router from "../router/index";
 import cacheService from "../services/cache";
 import scheduledService from "../services/scheduled";
+import Navbar from "../components/navbar/Navbar";
+import Footer from "../components/footer/Footer";
 
 export default {
   name: "SeatSelection",
@@ -60,13 +64,6 @@ export default {
       scheduled: null,
       totalTickets: 0,
       selectedSeats: [],
-      actions: [
-        {
-          message: "Bevestig stoelen",
-          class: "btn-dark",
-          action: () => scheduledService.editMany(this.items),
-        },
-      ],
     };
   },
   async created() {
@@ -112,6 +109,8 @@ export default {
   },
   components: {
     SeatPlan,
+    Footer,
+    Navbar,
   },
 };
 </script>
