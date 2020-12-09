@@ -30,7 +30,6 @@ router.post(
 router.put(
     "/:id",
     authentication,
-    authorization,
     require("../controllers/scheduled/update.controller")
 );
 router.put(
