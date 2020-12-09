@@ -8,8 +8,13 @@
       @updated="update"
       class="mb-3"
     ></Timeline>
-    <EditScheduled :populateWith="scheduled" @updated="update"></EditScheduled>
-    <Action :actions="actions"></Action>
+    <div class="edit" v-if="isAdmin">
+      <EditScheduled
+        :populateWith="scheduled"
+        @updated="update"
+      ></EditScheduled>
+      <Action :actions="actions"></Action>
+    </div>
     <Footer></Footer>
   </div>
 </template>
@@ -20,6 +25,7 @@ import Timeline from "../../components/timeline/Timeline";
 import Footer from "../../components/footer/Footer";
 import Navbar from "../../components/navbar/Navbar";
 import scheduledService from "../../services/scheduled";
+import tokenService from "../../services/token";
 
 export default {
   name: "Scheduled",
@@ -31,6 +37,7 @@ export default {
   },
   data() {
     return {
+      isAdmin: tokenService.isAdmin(),
       items: [],
       scheduled: {},
       actions: [

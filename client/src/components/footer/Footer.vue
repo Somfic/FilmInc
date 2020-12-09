@@ -6,7 +6,7 @@
       </div>
 
       <div class="col">
-        <span class="text-muted">{{ name() }}</span>
+        <span class="text-muted">{{ name }}</span>
       </div>
 
       <div class="col">
@@ -16,19 +16,13 @@
   </div>
 </template>
 <script>
-import cacheService from "../../services/cache";
-import jwt from "jsonwebtoken";
+import tokenService from "../../services/token";
 
 export default {
   name: "Footer",
   data() {
     return {
-      name: () => {
-        let token = cacheService.read("token");
-        let payload = jwt.decode(token);
-
-        return payload.name.toString();
-      },
+      name: tokenService.name(),
     };
   },
 };
