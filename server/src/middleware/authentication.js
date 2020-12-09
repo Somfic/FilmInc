@@ -18,27 +18,26 @@ module.exports = async(req, res, next) => {
 
         jwt.verify(token, config.jwtSecret, async(err, payload) => {
             if (err) {
-                next(ServerError.unauthorized(err));
+                return next(ServerError.unauthorized(err));
             }
 
             if (payload) {
-                let uid = payload.uid;
-                let userAccount = await UserAccount.findOne({ uid: uid });
+                let userAccount = await UserAccount.findOne({ _id: payload.id });
                 if (!userAccount) {
-                    next(ServerError.unauthorized("Account has been deleted"));
+                    return next(ServerError.unauthorized("Account has been deleted"));
                 }
 
-                let name = userAccount.name;
+                logger.trace(
+                    `Authenticated user: ${userAccount.name} (${userAccount.uid})`
+                );
 
-                logger.trace(`Authorized user: ${name} (${uid})`);
-
-                req.uid = payload.uid;
-                next();
+                req.user = userAccount;
+                return next();
             } else {
-                next(ServerError.unauthorized("Invalid token"));
+                return next(ServerError.unauthorized("Invalid token"));
             }
         });
     } catch (err) {
-        next(ServerError.badRequest(err));
+        return next(ServerError.badRequest(err));
     }
 };

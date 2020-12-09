@@ -5,7 +5,7 @@ const UserAccount = require("../../models/UserAccount");
 const bcrypt = require("bcrypt");
 
 module.exports = async(req, res, next) => {
-    logger.trace("Controller: authentication.register");
+    logger.trace("Controller: useraccount.create");
 
     try {
         let userId = req.body.uid.toString();
@@ -14,15 +14,20 @@ module.exports = async(req, res, next) => {
 
         bcrypt.hash(code, config.saltRounds, async(err, hash) => {
             if (err) {
-                next(ServerError.internalError(err));
+                return next(ServerError.internalError(err));
             } else {
                 let account = { uid: userId, hash: hash, name: name };
 
-                let result = await UserAccount.create(account);
-                res.status(200).json(result);
+                await UserAccount.create(account, (err, result) => {
+                    if (err) {
+                        return next(ServerError.badRequest(err));
+                    } else {
+                        return res.status(200).json(result);
+                    }
+                });
             }
         });
     } catch (err) {
-        next(ServerError.badRequest(err));
+        return next(ServerError.badRequest(err));
     }
 };

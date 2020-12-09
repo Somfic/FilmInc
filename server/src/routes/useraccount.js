@@ -8,42 +8,33 @@ const router = express.Router();
 router.get(
     "/",
     authentication,
-    require("../controllers/scheduled/list.controller")
+    authorization,
+    require("../controllers/useraccount/list.controller")
 );
 router.get(
     "/:id",
     authentication,
-    require("../controllers/scheduled/get.controller")
+    authorization,
+    require("../controllers/useraccount/get.controller")
 );
+
 router.post(
     "/",
     authentication,
     authorization,
-    require("../controllers/scheduled/create.controller")
-);
-router.post(
-    "/:id",
-    authentication,
-    authorization,
-    require("../controllers/scheduled/dupe.controller")
+    require("../controllers/useraccount/create.controller")
 );
 router.put(
     "/:id",
     authentication,
     authorization,
-    require("../controllers/scheduled/update.controller")
-);
-router.put(
-    "/",
-    authentication,
-    authorization,
-    require("../controllers/scheduled/updateMany.controller")
+    require("../controllers/useraccount/update.controller")
 );
 router.delete(
     "/:id",
     authentication,
     authorization,
-    require("../controllers/scheduled/delete.controller")
+    require("../controllers/useraccount/delete.controller")
 );
 
 module.exports = router;
