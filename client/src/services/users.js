@@ -66,4 +66,4 @@ class UserService {
     }
 }
 
-export default ScheduledService;
+export default UserService;
