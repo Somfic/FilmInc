@@ -25,7 +25,7 @@ app.use("/api/auth", require("./src/routes/authentication"));
 app.use(require("./src/error/errorHandler.js"));
 
 if (config.mode == "production") {
-    logger.debug("Production mode detected, hosting frontend too");
+    logger.debug("Production mode detected, hosting frontend");
 
     // Serve static client
     app.use(express.static(path.resolve(__dirname, "public/")));
