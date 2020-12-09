@@ -28,13 +28,13 @@ const routes = [{
         path: "/watchables",
         name: "Voorstellingen",
         component: () =>
-            import ("../views/admin/Watchables.vue"),
+            import ("../views/Watchables.vue"),
     },
     {
         path: "/scheduled",
         name: "Inplanningen",
         component: () =>
-            import ("../views/admin/Scheduled.vue"),
+            import ("../views/Scheduled.vue"),
     },
 ];
 
