@@ -48,7 +48,7 @@ export default {
       scheduledEdited: {},
       actions: [
         {
-          message: "Sla wijzigingen op",
+          message: "Bevestig stoel keuze",
           class: "btn-dark",
           action: () =>
             scheduledService.edit(this.scheduled._id, this.scheduledEdited),
