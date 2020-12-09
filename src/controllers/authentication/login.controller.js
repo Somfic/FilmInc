@@ -18,22 +18,26 @@ module.exports = async(req, res, next) => {
 
         bcrypt.compare(code, userAccount.hash, function(err, result) {
             if (err) {
-                next(ServerError.internalError(err));
+                return next(ServerError.internalError(err));
             }
 
             if (result == true) {
-                let token = jwt.sign({ uid: userId, name: userAccount.name },
+                let token = jwt.sign({
+                        id: userAccount._id,
+                        name: userAccount.name,
+                        isAdmin: userAccount.isAdmin,
+                    },
                     config.jwtSecret, {
-                        expiresIn: "12h",
+                        expiresIn: "6h",
                     }
                 );
 
-                res.status(200).json({ token: token });
+                return res.status(200).json({ token: token });
             } else {
-                next(ServerError.unauthorized("Invalid login attempt"));
+                return next(ServerError.unauthorized("Invalid login attempt"));
             }
         });
     } catch (err) {
-        next(ServerError.badRequest(err));
+        return next(ServerError.badRequest(err));
     }
 };

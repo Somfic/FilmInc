@@ -23,4 +23,8 @@ module.exports = class ServerError {
     static notImplemented(error) {
         return new ServerError(501, error);
     }
+
+    static forbidden(error) {
+        return new ServerError(403, error);
+    }
 };
