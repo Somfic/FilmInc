@@ -30,7 +30,7 @@ module.exports = (req, res, next) => {
     ) {
         logger.trace(`${req.method} request: ${url}`, requestInfo);
     } else {
-        logger.debug(`${req.method} request: ${url}`, requestInfo);
+        logger.info(`${req.method} request: ${url}`, requestInfo);
     }
 
     next();
