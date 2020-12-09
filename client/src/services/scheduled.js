@@ -23,6 +23,20 @@ class ScheduledService {
         });
     }
 
+    static getOne(id) {
+        return new Promise((resolve, reject) => {
+            axios
+                .get(url + "/" + id, config)
+                .then((res) => {
+                    resolve(res);
+                })
+                .catch((err) => {
+                    authCheck(err);
+                    reject(err.response);
+                });
+        });
+    }
+
     static create(item) {
         return new Promise((resolve, reject) => {
             axios

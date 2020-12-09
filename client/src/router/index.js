@@ -13,6 +13,12 @@ const routes = [{
             import ("../views/Auth.vue"),
     },
     {
+        path: "/finish",
+        name: "Voltooid",
+        component: () =>
+            import ("../views/Finish.vue"),
+    },
+    {
         path: "/users",
         name: "Gebruikers",
         component: () =>

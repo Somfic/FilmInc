@@ -59,6 +59,14 @@ export default {
     },
     newItem(item) {
       item.isUpdated = true;
+      if (item.location == 1 || item.location == 2) {
+        item.rows = 10;
+        item.columns = 15;
+      } else {
+        item.rows = 15;
+        item.columns = 25;
+      }
+
       this.items.push(item);
     },
     update() {
