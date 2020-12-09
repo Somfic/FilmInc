@@ -7,8 +7,8 @@ module.exports = async(req, res, next) => {
 
     try {
         let result = await Watchable.create(req.body);
-        res.status(201).json(result);
+        return res.status(201).json(result);
     } catch (err) {
-        next(ServerError.badRequest(err));
+        return next(ServerError.badRequest(err));
     }
 };

@@ -5,10 +5,11 @@ module.exports = mongoose.model(
     "UserAccount",
     mongoose.Schema({
         uid: {
-            type: Number,
+            type: String,
             required: true,
-            min: 0,
-            max: 9999,
+            minLength: 4,
+            maxLength: 4,
+            unique: true,
         },
 
         hash: {
@@ -19,6 +20,12 @@ module.exports = mongoose.model(
         name: {
             type: String,
             required: true,
+        },
+
+        isAdmin: {
+            type: Boolean,
+            required: true,
+            default: false,
         },
     })
 );

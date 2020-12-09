@@ -1,6 +1,7 @@
 const express = require("express");
-const validation = require("../validation/validation");
-const authentication = require("../validation/authentication");
+const validation = require("../middleware/validation");
+const authentication = require("../middleware/authentication");
+const authorization = require("../middleware/authorization");
 
 const router = express.Router();
 
@@ -17,16 +18,19 @@ router.get(
 router.post(
     "/",
     authentication,
+    authorization,
     require("../controllers/watchable/create.controller")
 );
 router.post(
     "/:id",
     authentication,
+    authorization,
     require("../controllers/watchable/dupe.controller")
 );
 router.put(
     "/:id",
     authentication,
+    authorization,
     require("../controllers/watchable/update.controller")
 );
 router.put(
@@ -37,6 +41,7 @@ router.put(
 router.delete(
     "/:id",
     authentication,
+    authorization,
     require("../controllers/watchable/delete.controller")
 );
 

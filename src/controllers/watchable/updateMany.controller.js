@@ -16,6 +16,6 @@ module.exports = async(req, res, next) => {
             }
         });
     } catch (err) {
-        next(ServerError.badRequest(err));
+        return next(ServerError.badRequest(err));
     }
 };

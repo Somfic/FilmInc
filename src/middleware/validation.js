@@ -7,8 +7,8 @@ module.exports = (schema) => async(req, res, next) => {
     try {
         let validBody = await schema.validate(req.body);
         req.body = validBody;
-        next();
+        return next();
     } catch (err) {
-        next(ServerError.badRequest(err));
+        return next(ServerError.badRequest(err));
     }
 };

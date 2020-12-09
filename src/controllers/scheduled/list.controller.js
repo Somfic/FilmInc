@@ -7,8 +7,8 @@ module.exports = async(req, res, next) => {
 
     try {
         let result = await Scheduled.find();
-        res.status(200).json(result);
+        return res.status(200).json(result);
     } catch (err) {
-        next(ServerError.badRequest(err));
+        return next(ServerError.badRequest(err));
     }
 };

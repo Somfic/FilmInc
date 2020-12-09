@@ -16,8 +16,8 @@ module.exports = async(req, res, next) => {
             }
         });
 
-        res.status(200).json(results);
+        return res.status(200).json(results);
     } catch (err) {
-        next(ServerError.badRequest(err));
+        return next(ServerError.badRequest(err));
     }
 };
